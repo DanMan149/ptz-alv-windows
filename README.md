@@ -24,7 +24,7 @@ Stream not showing? The stream URL in Twitch Settings needs `parent=localhost`, 
 - Control the Alveus cameras from a web page on your own computer. Every button sends the matching command to Twitch chat as your account.
 - Presets per camera (list or grid, search, hotkeys), custom presets, camera thumbnails, live Twitch chat widget.
 - Control pad: move, zoom and focus, spin widget, swap widget.
-- **Click on the video** to send the camera there. With **Click Preset** on, a click loads the nearest saved preset instead. **Calibrate** teaches the app each camera's field of view for better accuracy (nothing is sent to chat while calibrating).
+- **Click on the video** to send the camera there. With **Click Preset** on (for subs), a click loads the nearest saved preset instead. **Calibrate** teaches the app each camera's field of view for better accuracy (nothing is sent to chat while calibrating).
 - **Slots:** the app knows which camera is in which slot of the stream. **Sync Slots** or **Auto Sync** keeps the map up to date from the bot's replies.
   - Middle click (scroll wheel click) a slot: selects that slot's camera and scrolls the camera list to it.
   - Right click a slot: zoom list (10 to 600 percent) and focus list (-1000 to 1000) side by side.
