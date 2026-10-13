@@ -354,3 +354,5 @@
 .button-container button.tbicon.highlighted:hover { background-color:#1565c0 !important; }
 .button-container { position:relative !important; z-index:50 !important; }
 .button-container button.vidbutton5 { display:none !important; }
+.button-container #shotBtn { order:5 !important; }
+.button-container button.vidbutton6 { order:6 !important; }
