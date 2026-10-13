@@ -52,4 +52,4 @@ Do not overwrite your own `config.json`, `public/cameras.json`, `public/custom-p
 
 ## Credits
 
-Originally created by Dansza. This is a community-built, open source tool for controlling the Alveus Sanctuary cameras. It is not affiliated with Twitch.
+Originally created by Dansza. This is a community-built, open source tool for controlling the Alveus Sanctuary cameras. It is not affiliated with Twitch or Alveus Sanctuary.
