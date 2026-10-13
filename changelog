@@ -1,3 +1,4 @@
+v2.1: icon toolbar with hover names, Resetlivecams button with confirm, Calibrate and Auto Sync moved to Interface Settings (v2.0: auto-detect new presets, Get Info, Wolftext)
 v1.9: click on video to load nearest preset (per-camera calibration, sends only !ptzload)
 v1.9
  - New UI based on the ptz.app web version (layout, thumbnails, camera search, resizable lists)

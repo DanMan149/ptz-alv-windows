@@ -69,8 +69,56 @@ app.get('/chat-stream', (req, res) => {
     req.on('close', () => chatClients.delete(res));
 });
 
+// ---- Passive preset auto-detect ----
+// Whenever anyone runs "!ptzlist <cam>" and the bot answers "PTZ Presets: a, b, c", any names missing from
+// cameras.json are added to that camera automatically. Nothing extra is sent to chat.
+const autoPreset = { cam: null, camAt: 0, acc: '', active: false, lastAt: 0, timer: null, rev: 0, last: null };
+function flushAutoPreset() {
+    clearTimeout(autoPreset.timer);
+    const camKey = autoPreset.cam, raw = autoPreset.acc;
+    autoPreset.active = false; autoPreset.acc = ''; autoPreset.cam = null;
+    if (!camKey || !raw) return;
+    const names = raw.split(',').map(x => x.trim()).filter(x => /^[A-Za-z0-9_-]+$/.test(x));
+    if (!names.length) return;
+    const file = path.join(__dirname, 'public', 'cameras.json');
+    fs.readFile(file, 'utf8', (err, data) => {
+        if (err) return console.error('Auto presets: cannot read cameras.json', err.message);
+        let cd;
+        try { cd = JSON.parse(data); } catch (e) { return console.error('Auto presets: bad cameras.json'); }
+        const cam = cd.cameras.find(c => String(c.name).toLowerCase() === camKey);
+        if (!cam) return console.log('Auto presets: camera not in your list, skipped:', camKey);
+        const have = new Set((cam.presets || []).map(x => String(x).toLowerCase()));
+        const add = names.filter(x => !have.has(x.toLowerCase()));
+        if (!add.length) return;
+        cam.presets = (cam.presets || []).concat(add);
+        fs.writeFile(file, JSON.stringify(cd, null, 2), 'utf8', (werr) => {
+            if (werr) return console.error('Auto presets: write failed', werr.message);
+            autoPreset.rev++; autoPreset.last = { camera: cam.name, added: add, at: Date.now() };
+            console.log('Auto presets: added to ' + cam.name + ':', add.join(', '));
+        });
+    });
+}
+client.on('message', (channel, tags, message) => {
+    const m = String(message || '').trim();
+    const cmd = /^!ptzlist\s+(\S+)/i.exec(m);
+    if (cmd) { flushAutoPreset(); autoPreset.cam = cmd[1].toLowerCase(); autoPreset.camAt = Date.now(); return; }
+    if ((tags.username || '').toLowerCase() !== 'alveussanctuary') return;
+    if (/^PTZ Presets:/i.test(m) && autoPreset.cam && Date.now() - autoPreset.camAt < 20000) {
+        autoPreset.acc = m.substring(12).trim(); autoPreset.active = true; autoPreset.lastAt = Date.now();
+        clearTimeout(autoPreset.timer); autoPreset.timer = setTimeout(flushAutoPreset, 2000);
+    } else if (autoPreset.active && Date.now() - autoPreset.lastAt < 2000) {
+        autoPreset.acc += m; autoPreset.lastAt = Date.now();
+        clearTimeout(autoPreset.timer); autoPreset.timer = setTimeout(flushAutoPreset, 2000);
+    }
+});
+// commands sent from this app go through the queue, not chat echo, so note them here too
+function noteOwnPtzList(command) {
+    const cmd = /^!ptzlist\s+(\S+)/i.exec(String(command || '').trim());
+    if (cmd) { autoPreset.cam = cmd[1].toLowerCase(); autoPreset.camAt = Date.now(); }
+}
+
 app.get('/status', (req, res) => {
-    res.json({ canSend: hasIdentity, channel: config.twitch.channel, username: config.twitch.username });
+    res.json({ canSend: hasIdentity, channel: config.twitch.channel, username: config.twitch.username, presetRev: autoPreset.rev, presetLast: autoPreset.last });
 });
 
 // Endpoint to fetch current Twitch settings
@@ -759,6 +807,7 @@ app.get('/get-preset-by-name', (req, res) => {
 
 app.post('/send-command', (req, res) => {
     const command = req.body.command;
+    noteOwnPtzList(command);
     sendMessage(command);
     res.send('Command sent successfully');
 });     
