@@ -117,6 +117,26 @@ function noteOwnPtzList(command) {
     if (cmd) { autoPreset.cam = cmd[1].toLowerCase(); autoPreset.camAt = Date.now(); }
 }
 
+// Save a preset thumbnail (sent by the Screenshot button as a JPEG data URL)
+app.post('/save-thumbnail', (req, res) => {
+    const { dir, preset, image } = req.body || {};
+    const ok = (x) => typeof x === 'string' && /^[A-Za-z0-9_-]{1,60}$/.test(x);
+    if (!ok(dir) || !ok(preset) || typeof image !== 'string') return res.status(400).json({ error: 'bad request' });
+    const m = /^data:image\/(jpeg|png);base64,(.+)$/.exec(image);
+    if (!m) return res.status(400).json({ error: 'bad image' });
+    const buf = Buffer.from(m[2], 'base64');
+    if (!buf.length || buf.length > 5 * 1024 * 1024) return res.status(400).json({ error: 'bad image size' });
+    const folder = path.join(__dirname, 'public', 'button-img', dir);
+    fs.mkdir(folder, { recursive: true }, (err) => {
+        if (err) return res.status(500).json({ error: err.message });
+        fs.writeFile(path.join(folder, preset + '.png'), buf, (werr) => {
+            if (werr) return res.status(500).json({ error: werr.message });
+            console.log('Saved thumbnail:', dir + '/' + preset + '.png', buf.length + ' bytes');
+            res.json({ ok: true, path: 'button-img/' + dir + '/' + preset + '.png' });
+        });
+    });
+});
+
 app.get('/status', (req, res) => {
     res.json({ canSend: hasIdentity, channel: config.twitch.channel, username: config.twitch.username, presetRev: autoPreset.rev, presetLast: autoPreset.last });
 });
