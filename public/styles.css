@@ -1,0 +1,4077 @@
+/* Global styles to hide scrollbars for Webkit browsers (Chrome, Safari, newer Edge) */
+::-webkit-scrollbar {
+    display: none !important; /* Chrome, Safari, and newer Edge */
+}
+
+* {
+    scrollbar-width: none !important; /* Firefox */
+    -ms-overflow-style: none !important; /* Internet Explorer and Edge */
+}
+
+
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    background-color: #404040; /* Dark background color */
+    color: #ffffff; /* White text color */
+    margin: 0;
+    padding: 0;
+    user-select: none; /* Prevents text selection */
+}
+
+/* Make sure the wrapper spans the full screen and is above everything */
+#fixed-wrapper {
+  position: fixed;
+  inset: 0; /* shorthand for top: 0; right: 0; bottom: 0; left: 0 */
+  z-index: 99999; /* must be higher than anything else on the page */
+  display: flex;
+  justify-content: flex-end; /* push icon column to right side */
+  align-items: center;       /* center vertically */
+  pointer-events: none;      /* allows clicks to pass through */
+}
+
+/* The actual icon container */
+#icon-overlay {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: auto; /* allow interaction */
+  background-color: rgba(0, 0, 0, 0.6);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+  border-radius: 8px;
+  padding: 8px;
+  margin-right: 10px;
+  max-height: calc(80vh);
+  overflow-y: auto;
+}
+
+#icon-overlay.collapsed > *:not(:first-child) {
+  display: none;
+}
+
+
+#icon-overlay button {
+    flex-shrink: 0; /* Prevent shrinking */
+    box-sizing: border-box; /* Ensure padding is included in dimensions */
+}
+
+#submenu-overlay-presets, #submenu-overlay-fullscreen, #submenu-overlay-select {
+    position: absolute;
+    flex-direction: row-reverse;
+    gap: 10px;
+    border-radius: 8px;
+    padding: 8px;
+    z-index: 1000;
+    height: 38px;
+    align-items: center;
+    pointer-events: auto;
+}
+
+.submenu-button {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.6);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 60%;
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.15);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+.button-save, .button-add-preset {
+  background-image: url('/img/preset-save.png');
+}
+
+.button-last-position {
+  background-image: url('/img/last-position2.png');
+}
+
+.button-presetmap {
+  background-image: url('/img/preset-find.png');
+}
+
+.button-customfocus {
+  background-image: url('/img/preset-save.png');
+}
+
+.button-loadcf {
+  background-image: url('/img/getinfoicon.png');
+}
+
+.button-unmute.muted {
+    background-image: url('/img/mute.png'); /* Set the PNG icon */
+}
+
+.button-unmute.unmuted {
+    background-image: url('/img/unmute.png'); /* Set the PNG icon */
+}
+
+.button-swap {
+  background-image: url('/img/camswap.png'); /* Set the PNG icon */
+}
+
+.button-criclespin {
+  background-image: url('/img/circlespin2.png');
+}
+.button11-submenu {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.6);
+  background-image: url('/img/preset-save.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 60%;
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.15);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+.button14-submenu {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.6);
+  background-image: url('/img/last-position2.png'); /* Set the PNG icon */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 60%;
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.15);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.extra-button {
+  width: 36px;
+  height: 36px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/img/background1.jpg'); /* Add background image */
+    background-size: cover; /* Ensure the background image covers the whole viewport */
+    background-position: center; /* Center the background image */
+    z-index: -1; /* Send the overlay behind the content */
+}
+
+.background-overlay {
+    will-change: opacity, transform;
+} 
+
+.logo {
+    margin-right: -10px; /* Adjust spacing between logo and text */
+    margin-left: 10px; /* Adjust spacing between logo and text */
+}
+
+.logo img {
+    width: 50px; /* Adjust width of the logo image */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.layout-icons {
+    position: absolute;
+    top: 18px;
+    right: 10px;
+    font-size: 15px;
+    cursor: pointer;
+    zoom: 150%;
+}
+
+.layout-icons > *:not(:last-child) {
+    margin-right: 5px; /* Adjust the gap between icons */
+}
+
+.layout-icons:hover  {
+    cursor: pointer;
+}
+
+.preset-layout-icons {
+    display: flex;
+    font-size: 15px;
+    gap: 8px;
+    cursor: pointer;
+    zoom: 120%;
+}
+.label-with-icons {
+    display: flex;
+    align-items: center; /* Align h2 and icons vertically */
+}
+
+.active-icon {
+}
+
+.heading-container {
+    position: relative; /* Ensure relative positioning for absolute child */
+    background-color: #1c1c1c;
+    color: #fff; /* Change the text color as needed */
+    height: 60px;
+    display: flex;
+    margin-left: 10px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.45) inset;
+    zoom: 90%;
+    width: 90%;
+    padding-top: 10px;
+    margin-top: 20px;
+}
+
+
+
+.heading-container::before {
+    content: "";
+    position: absolute;
+    bottom: -10px; /* Adjust as needed */
+    left: 0;
+    width: 100%;
+    height: 10px; /* Adjust as needed */
+}
+
+
+.box-background {
+    position: absolute;
+    margin-top: -20px;
+    left: 0;
+    width: 225px; /* Set width to fill the container */
+    height: 40px; /* Set height to fill the container */
+    background-color: #b2b2b2; /* Specify your desired background color */
+    z-index: 2; /* Set z-index lower than the heading to position it behind */
+}
+
+.admin-icon {
+    width: 30px; /* Adjust as needed */
+    height: 30px; /* Adjust as needed */
+    margin-left: 0px; /* Adjust as needed */
+    position: relative;
+    top: 4px;
+}
+.admin-icon:hover {
+    background-color: #1e88e5;
+    transform: scale(1.15); /* Slightly larger hover effect */
+}
+
+.left-items {
+    padding-left: 5px; /* Adjust padding as needed */
+}
+
+.ptz-heading {
+    text-align: left;
+    margin-left: 20px;
+    font-size: 18px;
+    margin-top: 15px;
+    position: relative; /* Ensure proper positioning */
+    z-index: 3; /* Set a higher z-index value to display it on top */
+}
+
+.ptz-heading a {
+    text-decoration: none;
+}
+
+.top-left-image {
+    position: fixed;
+    top: 10px;
+    left: 50px;
+    width: 7%;
+}
+
+.label {
+    color: #b2b2b2;
+    font-size: 15px; /* Adjust font size */
+    margin-left: 20px; /* Adjust spacing between label and camera-pad */
+    margin-bottom: 10px; /* Reduce the gap between the label and the camera-pad */
+    font-weight: lighter; /* Set font weight to normal */
+}
+
+#click-overlay {
+    position: absolute; /* Positioned on top of the video stream */
+    top: 0;
+    left: 0;
+    width: 100%; /* Covering the entire container */
+    height: 100%; /* Covering the entire container */
+    background: transparent; /* Transparent to allow video visibility */
+    cursor: copy; /* Indicate that the area is clickable */
+}
+
+
+#canvas-overlay {
+    position: absolute; /* Positioned on top of the video stream */
+    top: 0;
+    left: 0;
+    width: 100%; /* Covering the entire container */
+    height: 100%; /* Covering the entire container */
+    background: transparent; /* Transparent to allow video visibility */
+    cursor: copy; /* Indicate that the area is clickable */
+    pointer-events: auto;
+}
+#canvasOverlay {
+    position: absolute; /* Positioned on top of the video stream */
+    top: 0;
+    left: 0;
+    width: 100%; /* Covering the entire container */
+    height: 100%; /* Covering the entire container */
+    background: transparent; /* Transparent to allow video visibility */
+    cursor: copy; /* Indicate that the area is clickable */
+    pointer-events: auto;
+}
+
+.right-side {
+    flex: 1; /* Take up the remaining space */
+    position: relative; /* Position for video window */
+    
+}
+
+.video-container.collapsed {
+    display: none;
+}
+
+.video-active {
+    width: calc(100% - 189px);
+    height: 100vh;
+    position: fixed;
+    overflow: hidden;
+    z-index: 1;
+}
+
+@media (max-width: 600px) {
+
+.preset-container {
+    min-width: 275px;
+    margin-top: -50px;
+    overflow: hidden; /* Ensure no overflow behavior on the parent container */
+    zoom: 80%;
+}
+}
+@media (min-width: 600px) {
+
+    .preset-container {
+        min-width: 314px;
+        margin-top: -50px;
+        overflow: hidden; /* Ensure no overflow behavior on the parent container */
+        zoom: 80%;
+
+    }
+    }
+
+.preset-container.collapsed {
+    display: none;
+}
+
+
+.custom-preset-container {
+   margin-top: 40px;
+}
+
+.chat-container {
+    margin-top: 40px;
+ }
+ 
+.direction-container {
+    background-color: #1c1c1c;
+    margin-top: 10px;
+    width: 90%;
+    margin-left: 10px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.45) inset;
+}
+
+.others-container {
+}
+
+.direction-pantilt-container {
+}
+
+.direction-heading {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #b2b2b2;
+    font-size: 15px; /* Adjust font size */
+    margin-left: 20px; /* Adjust spacing between label and camera-pad */
+    margin-bottom: 0px; /* Reduce the gap between the label and the camera-pad */
+    text-align: center; /* Center text horizontally */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8), -1px -1px 2px rgba(255, 255, 255, 0.1);
+    letter-spacing: 0.5px;
+}
+
+.direction-heading-camera {
+    margin-top: 10px;
+    font-size: 15px;
+    color: #b2b2b2;
+    margin-left: 15px;
+    margin-bottom: 3px;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8), -1px -1px 2px rgba(255, 255, 255, 0.1);
+    letter-spacing: 0.5px;
+}
+
+.cam-search-input {
+    display: block;
+    width: 185px;
+    margin-left: 10px;
+    box-sizing: border-box;
+    background-color: #222222;
+    border: none;
+    border-bottom: 1px solid #383838;
+    color: #c8c8c8;
+    font-size: 13px;
+    padding: 4px 8px 6px;
+    outline: none;
+}
+
+.cam-search-input::placeholder {
+    color: rgba(255, 255, 255, 0.25);
+    font-style: italic;
+}
+
+.cam-search-input:focus {
+    background-color: #2a2a2a;
+    border-bottom-color: #555;
+}
+
+.cam-search-input::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+}
+
+.direction-move-heading {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #b2b2b2;
+    font-size: 15px; /* Adjust font size */
+    margin-left: 20px; /* Adjust spacing between label and camera-pad */
+    margin-bottom: -5px; /* Reduce the gap between the label and the camera-pad */
+    font-weight: lighter; /* Set font weight to normal */
+}
+
+.direction-focus-heading {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #b2b2b2;
+    font-size: 15px; /* Adjust font size */
+    margin-left: 25px; /* Adjust spacing between label and camera-pad */
+    margin-bottom: -5px; /* Reduce the gap between the label and the camera-pad */
+    font-weight: lighter; /* Set font weight to normal */
+}
+
+.direction-zoom-heading {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #b2b2b2;
+    font-size: 15px; /* Adjust font size */
+    margin-left: 20px; /* Adjust spacing between label and camera-pad */
+    margin-bottom: -5px; /* Reduce the gap between the label and the camera-pad */
+    font-weight: lighter; /* Set font weight to normal */
+}
+
+.toggle-button {
+    float: right;
+}
+
+.focus-pad.collapsed {
+    display: none;
+} 
+
+.direction-pad.collapsed {
+    display: none;
+}
+
+.pantilt-pad.collapsed {
+    display: none;
+}
+.ptz-container.collapsed {
+    display: none;
+}
+.zoom-container.collapsed {
+    display: none;
+}
+.swap-container.collapsed {
+    display: none;
+}
+.spin-container.collapsed {
+    display: none;
+}
+.focus-container.collapsed {
+    display: none;
+}
+
+.ir-container.collapsed {
+    display: none;
+}
+.other-container.collapsed {
+    display: none;
+}
+
+.direction-pad-outer.collapsed {
+    display: none;
+}
+.camera-container {
+    margin-left: 10px !important;
+    display: flex;
+    flex-direction: column; /* Display buttons in a vertical list */
+    align-items: flex-start; /* Align buttons to the start of the container */
+    background-color: #222222; /* Set background color for the whole box */
+    padding: 0px;
+    border-radius: 0; /* Make corners square */
+    margin-right: 30px;
+    border: none; /* Remove border */ 
+    width: 185px; /* Set width of the container */
+    height: 222px; /* Set the height to 290px */
+    margin-left: 20px;
+    overflow-y: auto; /* Make the container scrollable vertically */
+    overflow-x: hidden; /* Make the container scrollable vertically */
+    
+}
+
+.camera-button {
+    width: 120px; /* Ensure buttons take full width of container */
+    height: 28px; /* Set a fixed height for buttons */
+    margin-top: 2px;
+    margin-bottom: 5px; /* Adjust spacing between buttons */
+    color: white; /* Text color */
+    background-color: #222222; /* Background color */
+    border: none; /* Remove button border */
+    cursor: pointer;
+    font-size: 18px;
+    text-align: left; /* Align text to the left */
+    flex-shrink: 0; /* Prevent the button from shrinking */
+    letter-spacing: 0.5px;
+    text-indent: 0.5em; /* Adjust as needed */
+}
+
+.camera-button:hover {
+    background-color: #606060; /* Darker background color on hover */
+}
+.camera-button.selected {
+    background-color: #6082B6; /* Example background color for selected button */
+    color: white; /* Example text color for selected button */
+}
+
+.quickswap-camera-button {
+    max-width: 120px; /* Ensure buttons take full width of container */
+    height: 28px; /* Set a fixed height for buttons */
+    margin-top: 7px;
+    margin-left: -7px;
+    margin-bottom: 0px; /* Adjust spacing between buttons */
+    color: white; /* Text color */
+    background-color: #222222; /* Background color */
+    border: none; /* Remove button border */
+    cursor: pointer;
+    font-size: 16px;
+    text-align: left; /* Align text to the left */
+    flex-shrink: 0; /* Prevent the button from shrinking */
+    letter-spacing: 0.5px;
+    text-indent: 0.5em; 
+    border-radius: 5px; /* Adds rounded edges */
+}
+
+.quickswap-camera-button:hover {
+    background-color: #6082B6; /* Darker background color on hover */
+}
+
+.quickswap-camera-button-hover {
+    background-color: #6082B6; /* Darker background color on hover */
+}
+
+
+.container {
+    display: flex;
+    margin-top: 2px;
+    margin-bottom: 30px;
+}
+
+
+.container > .direction-pad {
+    margin-right: 20px;
+}
+
+.chat-box {
+  display: grid;
+  grid-template-columns: repeat(1, 300px);
+  grid-gap: 0;
+  background-color: #222222;
+  padding: 0;
+  border-radius: 0;
+  border: none;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  margin-left: -70px;
+  margin-top: 10px; 
+  width: 250px;
+  height: 100px;
+  overflow-y: auto;
+}
+
+.chat-message {
+  list-style-type: none;
+  padding: 10px;
+  color: #ffffff;
+}
+.chat-box ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove default padding */
+    font-size: 12px; /* Force font size */
+    margin-left: 5px;
+    font-weight: lighter; /* Set font weight to normal */
+
+}
+
+
+.chat-message:nth-child(even) {
+  background-color: #333333;
+}
+
+.custom-preset-container.collapsed {
+    display: none;
+}
+
+/* Styles for screens less than 600px */
+@media (max-width: 600px) {
+.list-layout {
+    .preset-container-card {
+        margin-top: 60px;
+        margin-left: 0px;
+        padding-bottom: 20px;
+        border-radius: 10px;
+        padding-left: 30px;
+        padding-right: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Safari */
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.45) inset;
+        width: 230px;
+        overflow: hidden; /* Ensure no overflow behavior on the parent container */
+    
+    } 
+    .preset-pad, .custom-preset-pad {
+        display: grid;
+        grid-template-columns: repeat(1, 230px);
+        grid-gap: 0;
+        padding: 0;
+        border-radius: 0;
+        border: none;
+        margin-left: -5px;
+        margin-top: 30px;
+        width: 230px;
+        max-height: 699px; /* Adjust the value as needed */
+        min-height: 150px; /* Adjust the value as needed */
+        overflow-y: auto;
+        grid-auto-rows: 50px;
+    }
+
+    .preset-button, .custom-preset-button {
+        font-family: 'JetBrains Mono', 'Roboto Mono', monospace;
+        font-size: 16px;
+        margin: 0;
+        padding-left: 15px; /* Adjust the value as needed */
+        color: white;
+        background-color: #222222;
+        border: none;
+        cursor: pointer;
+        text-align: left;
+        box-sizing: border-box;
+        width: 100%;
+        height: 45px;
+        
+    }
+      .preset-image, .custom-preset-image, .layout-icons {
+        display: none; /* Hide the image by default */
+    }
+
+
+    /* Hover effect for buttons on small screens */
+    .preset-button:hover, .custom-preset-button:hover {
+        background-color: #606060;
+    }
+    .label-preset {
+        color: #b2b2b2;
+        font-size: 15px; /* Adjust font size */
+        display: block; /* Set the label as a block-level element */
+        position: absolute;
+        font-weight: normal; /* Set font weight to normal */
+        margin-top: 10px;
+        margin-left: 0px; /* Adjust the margin-left value */
+        font-weight: lighter; /* Set font weight to normal */
+    }
+
+   .custom-label-preset {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #b2b2b2;
+        font-size: 15px; /* Adjust font size */
+        display: block; /* Set the label as a block-level element */
+        position: absolute;
+        margin-top: -25px;
+        margin-left: 0px; /* Adjust the margin-left value */
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8), -1px -1px 2px rgba(255, 255, 255, 0.1);
+        letter-spacing: 0.5px;
+    }
+
+    .preset-pad.collapsed {
+        display: none;
+    }
+    .label-preset-heading {
+        width: 100px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #b2b2b2;
+        font-size: 15px; /* Adjust font size */
+        display: block; /* Set the label as a block-level element */
+        position: relative;
+        margin-bottom: 0;
+        margin-top: 0;
+        margin-left: 0px; /* Adjust the margin-left value */
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8), -1px -1px 2px rgba(255, 255, 255, 0.1);
+        letter-spacing: 0.5px;
+    } 
+    #presetSearch {
+        height: 5px;
+        width: 100px;
+        padding: 5px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+  }
+
+.grid-layout {
+.preset-container-card {
+    margin-top: 60px;
+    margin-left: 0px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+    padding-left: 30px;
+    padding-right: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Safari */
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.45) inset;
+    max-width: 400px; /* Adjust the value as needed */
+    overflow: hidden; /* Ensure no overflow behavior on the parent container */
+
+}
+.preset-pad, .custom-preset-pad {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    border: none;
+    margin-top: 20px;
+    margin-left: 0px;
+    max-width: 400px; /* Adjust the value as needed */
+    max-height: 850px; /* Adjust the value as needed */
+    min-height: 200px; /* Adjust the value as needed */
+    overflow-y: auto;
+}
+
+.preset-button-container, .custom-preset-button-container {
+    display: inline-block;
+    text-align: center;
+    margin-bottom: 20px; /* Adjust as needed */
+    margin-right: 25px; /* Add margin between containers */
+}
+
+.preset-button, .custom-preset-button {
+    width: 220px; /* Adjust width as needed */
+    display: block; /* Ensure proper alignment */
+    margin: 0 auto 0px; /* Center image and button and add space below */
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); /* Add 3D shadow effect */
+    cursor: pointer; /* Add cursor pointer */
+    border-top-left-radius: 0px; /* Adjust the radius for the top-left corner */
+    border-top-right-radius: 0px; /* Adjust the radius for the top-right corner */
+    border-bottom-left-radius: 5px; /* Keep the bottom-left corner square */
+    border-bottom-right-radius: 5px; /* Keep the bottom-right corner square */
+}
+
+
+.preset-image, .custom-preset-image {
+    width: 220px; /* Adjust width as needed */
+    display: block; /* Ensure proper alignment */
+    margin: 0 auto 0px; /* Center image and button and add space below */
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); /* Add 3D shadow effect */
+    cursor: pointer; /* Add cursor pointer */
+    border-top-left-radius: 5px; /* Adjust the radius for the top-left corner */
+    border-top-right-radius: 5px; /* Adjust the radius for the top-right corner */
+    border-bottom-left-radius: 0; /* Keep the bottom-left corner square */
+    border-bottom-right-radius: 0; /* Keep the bottom-right corner square */
+    
+}
+.preset-image, .custom-preset-image {
+    height: 124px; /* Maintain aspect ratio */
+}
+
+.preset-button, .custom-preset-button {
+    height: 30px; /* Adjust height of the button */
+    background-color: #1F1B24; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove border */
+    cursor: pointer; /* Add cursor pointer */
+    font-size: 18px; /* Adjust font size */
+    /* Add other button styles as needed */
+}
+
+.label-preset {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #b2b2b2;
+    font-size: 15px; /* Adjust font size */
+    display: block; /* Set the label as a block-level element */
+    position: relative;
+    margin-bottom: -10px;
+    margin-top: 10px;
+    margin-left: 0px; /* Adjust the margin-left value */
+    font-weight: lighter; /* Set font weight to normal */
+} 
+
+
+.custom-label-preset {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #b2b2b2;
+    font-size: 15px; /* Adjust font size */
+    display: block; /* Set the label as a block-level element */
+    position: relative;
+    margin-bottom: -10px;
+    margin-top: 35px;
+    margin-left: 0px; /* Adjust the margin-left value */
+    font-weight: lighter; /* Set font weight to normal */
+} 
+
+/* Hover effect for buttons on larger screens */
+.preset-button:hover,
+.preset-image:hover + .preset-button {
+    background-color: #1e88e5;
+    color: #ffffff;
+}
+/* Hover effect for buttons on larger screens */
+.custom-preset-button:hover,
+.custom-preset-image:hover + .custom-preset-button {
+    background-color: #1e88e5;
+    color: #ffffff;
+}
+
+.preset-pad.collapsed {
+    display: none;
+}
+.label-preset-heading {
+    width: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #b2b2b2;
+    font-size: 17px; /* Adjust font size */
+    display: block; /* Set the label as a block-level element */
+    position: relative;
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-left: 0px; /* Adjust the margin-left value */
+    font-weight: lighter; /* Set font weight to normal */
+} 
+#presetSearch {
+    height: 5px;
+    width: 100px;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+}
+
+}
+/* Styles for screens greater than 600px */
+@media (min-width: 601px) {
+
+.list-layout {
+    .preset-container-card {
+        margin-top: 60px;
+        margin-left: 0px;
+        padding-bottom: 20px;
+        border-radius: 10px;
+        padding-left: 30px;
+        padding-right: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Safari */
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.45) inset;
+
+        max-width: 400px; /* Adjust the value as needed */
+        overflow: hidden; /* Ensure no overflow behavior on the parent container */
+    
+    }
+    .preset-pad, .custom-preset-pad {
+        display: grid;
+        grid-gap: 0;
+        border-radius: 0;
+        border: none;
+        margin-left: -5px;
+        margin-top: 30px;
+        max-width: 600px; /* Adjust the value as needed */
+        max-height: 699px; /* Adjust the value as needed */
+        min-height: 150px; /* Adjust the value as needed */
+        min-width: 250px; /* Adjust the value as needed */
+        overflow-y: auto;
+        grid-auto-rows: 50px;
+    }
+
+    .preset-button, .custom-preset-button {
+        font-family: 'JetBrains Mono', 'Roboto Mono', monospace;
+        font-size: 14px;
+        margin: 0;
+        padding-left: 15px; /* Adjust the value as needed */
+        color: white;
+        background-color: #222222;
+        border: none;
+        cursor: pointer;
+        text-align: left;
+        box-sizing: border-box;
+        width: 98%;
+        height: 45px
+    }
+      .preset-image, .custom-preset-image {
+        display: none; /* Hide the image by default */
+    }
+    /* Hover effect for buttons on small screens */
+    .preset-button:hover, .custom-preset-button:hover {
+        background-color: #606060;
+    }
+    
+    .label-preset {
+        color: #b2b2b2;
+        font-size: 15px; /* Adjust font size */
+        display: block; /* Set the label as a block-level element */
+        position: absolute;
+        font-weight: normal; /* Set font weight to normal */
+        margin-top: 10px;
+        margin-left: 0px; /* Adjust the margin-left value */
+        font-weight: lighter; /* Set font weight to normal */
+    }
+
+   .custom-label-preset {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #b2b2b2;
+        font-size: 15px; /* Adjust font size */
+        display: block; /* Set the label as a block-level element */
+        position: absolute;
+        margin-top: -25px;
+        margin-left: 0px; /* Adjust the margin-left value */
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8), -1px -1px 2px rgba(255, 255, 255, 0.1);
+        letter-spacing: 0.5px;
+    }
+
+
+.preset-pad.single-column, .custom-preset-pad.single-column {
+    grid-template-columns: repeat(1, 1fr);
+    width: 200px;
+}
+
+.preset-pad:not(.single-column), .custom-preset-pad:not(.single-column) {
+    grid-template-columns: repeat(2, 1fr);
+    width: 400px;
+}
+
+.preset-pad.collapsed {
+    display: none;
+}
+
+.custom-preset-pad.collapsed {
+    display: none;
+}
+.label-preset-heading {
+    width: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #b2b2b2;
+    font-size: 15px; /* Adjust font size */
+    display: block; /* Set the label as a block-level element */
+    position: relative;
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-left: 0px; /* Adjust the margin-left value */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8), -1px -1px 2px rgba(255, 255, 255, 0.1);
+    letter-spacing: 0.5px;
+} 
+
+#presetSearch {
+    height: 5px;
+    width: 100px;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+}
+
+.grid-layout {
+.preset-container-card {
+//    background-color: #1c1c1c;
+    margin-top: 60px;
+    margin-left: 0px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+    padding-left: 30px;
+    padding-right: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Safari */
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.45) inset;
+    //box-shadow: 0 0 10px 0 rgba(0,0,0,0.45) inset;
+    max-width: 1000px; /* Adjust the value as needed */
+    overflow: hidden; /* Ensure no overflow behavior on the parent container */
+
+}
+.preset-pad, .custom-preset-pad {  
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    border: none;
+    margin-top: 25px;
+    margin-left: 20px;
+    max-width: 1000px; /* Adjust the value as needed */
+    min-height: 200px; /* Adjust the value as needed */
+    overflow-y: auto;
+}
+
+.preset-button-container, .custom-preset-button-container {
+    display: inline-block;
+    text-align: center;
+    margin-bottom: 20px; /* Adjust as needed */
+    margin-right: 25px; /* Add margin between containers */
+}
+
+.preset-button, .custom-preset-button {
+    width: 220px; /* Adjust width as needed */
+    display: block; /* Ensure proper alignment */
+    margin: 0 auto 0px; /* Center image and button and add space below */
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); /* Add 3D shadow effect */
+    cursor: pointer; /* Add cursor pointer */
+    border-top-left-radius: 0px; /* Adjust the radius for the top-left corner */
+    border-top-right-radius: 0px; /* Adjust the radius for the top-right corner */
+    border-bottom-left-radius: 5px; /* Keep the bottom-left corner square */
+    border-bottom-right-radius: 5px; /* Keep the bottom-right corner square */
+}
+
+
+.preset-image, .custom-preset-image {
+    width: 220px; /* Adjust width as needed */
+    display: block; /* Ensure proper alignment */
+    margin: 0 auto 0px; /* Center image and button and add space below */
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); /* Add 3D shadow effect */
+    cursor: pointer; /* Add cursor pointer */
+    border-top-left-radius: 5px; /* Adjust the radius for the top-left corner */
+    border-top-right-radius: 5px; /* Adjust the radius for the top-right corner */
+    border-bottom-left-radius: 0; /* Keep the bottom-left corner square */
+    border-bottom-right-radius: 0; /* Keep the bottom-right corner square */
+}
+.preset-image, .custom-preset-image {
+    height: 124px; /* Maintain aspect ratio */
+}
+
+.preset-button, .custom-preset-button {
+    height: 30px; /* Adjust height of the button */
+    background-color: #333232; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove border */
+    cursor: pointer; /* Add cursor pointer */
+    font-size: 18px; /* Adjust font size */
+    /* Add other button styles as needed */
+}
+
+.label-preset {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #b2b2b2;
+    font-size: 15px; /* Adjust font size */
+    display: block; /* Set the label as a block-level element */
+    position: relative;
+    margin-bottom: -15px;
+    padding-top: 10px;
+    margin-top: 0px;
+    margin-left: 20px; /* Adjust the margin-left value */
+    font-weight: lighter; /* Set font weight to normal */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8), -1px -1px 2px rgba(255, 255, 255, 0.1);
+
+} 
+
+.custom-label-preset {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #b2b2b2;
+    font-size: 15px; /* Adjust font size */
+    display: block; /* Set the label as a block-level element */
+    position: relative;
+    margin-bottom: -10px;
+    margin-top: 35px;
+    margin-left: 20px; /* Adjust the margin-left value */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8), -1px -1px 2px rgba(255, 255, 255, 0.1);
+    letter-spacing: 0.5px;
+
+} 
+
+/* When hovering the button or the image, both scale */
+.preset-button-hover,
+.preset-image-hover {
+    transform: scale(1.05); /* Slightly larger hover effect */
+}
+
+/* Optional: background color for the button on hover */
+.preset-button-hover {
+    background-color: #1e88e5;
+    color: #ffffff;
+}
+
+
+/* Hover effect for buttons on larger screens */
+.custom-preset-button:hover,
+.custom-preset-image:hover + .custom-preset-button {
+    background-color: #1e88e5;
+    color: #ffffff;
+}
+.preset-pad.collapsed {
+    display: none !important;
+}
+
+.custom-preset-pad.collapsed {
+    display: none;
+}
+
+.label-preset-heading {
+    width: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #b2b2b2;
+    font-size: 15px; /* Adjust font size */
+    display: block; /* Set the label as a block-level element */
+    position: relative;
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-left: 20px; /* Adjust the margin-left value */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8), -1px -1px 2px rgba(255, 255, 255, 0.1);
+    letter-spacing: 0.5px;
+} 
+#presetSearch {
+    height: 5px;
+    width: 100px;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+}
+
+}
+
+.list-icon {
+    /* Set the background image to list.png */
+    background-image: url('/img/list.png');
+    /* Set the width and height of the icon */
+    width: 16px; /* Adjust as needed */
+    height: 16px; /* Adjust as needed */
+    /* Display the background image */
+    display: inline-block;
+}
+
+.grid-icon {
+    /* Set the background image to grid.png */
+    background-image: url('/img/grid.png');
+    /* Set the width and height of the icon */
+    width: 16px; /* Adjust as needed */
+    height: 16px; /* Adjust as needed */
+    background-size: cover;
+    background-position: center;
+    /* Display the background image */
+    display: inline-block;
+}
+.grid-icon:hover {
+    background-color: #1e88e5;
+    transform: scale(1.15); /* Slightly larger hover effect */
+}
+
+@media (max-width: 900px) {
+
+.vid-icon {
+    background-image: url('/img/video-player.png');
+    width: 20px; /* Adjust as needed */
+    height: 20px; /* Adjust as needed */
+    background-size: cover;
+    background-position: center;
+    display: inline-block;
+    transform: translateY(1px); /* Adjust the value to move it down */
+
+}
+.vid-icon:hover {
+    background-color: #1e88e5;
+    transform: scale(1.15); /* Slightly larger hover effect */
+}
+
+    }
+
+@media (min-width: 901px) {
+
+.vid-icon {
+    background-image: url('/img/video-player.png');
+    width: 20px; /* Adjust as needed */
+    height: 20px; /* Adjust as needed */
+    background-size: cover;
+    background-position: center;
+    display: inline-block;   
+    transform: translateY(1px); /* Adjust the value to move it down */
+
+}
+.vid-icon:hover {
+    background-color: #1e88e5;
+    transform: scale(1.15); /* Slightly larger hover effect */
+}
+
+}
+
+
+.direction-and-ptz-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.direction-pad {
+    display: grid;
+    grid-template-columns: repeat(3, 50px);
+    grid-template-rows: repeat(3, 50px);
+    grid-gap: 10px;
+    width: 200px;
+    margin-left: 20px;
+    margin-top: 7px;
+}
+
+.pantilt-pad {
+    display: grid;
+    grid-template-columns: repeat(3, 50px);
+    grid-template-rows: repeat(3, 50px);
+    grid-gap: 10px;
+    width: 200px;
+    margin-left: 20px;
+    margin-top: 7px;
+}
+.focus-pad {
+    display: grid;
+    grid-template-columns: repeat(3, 50px);
+    grid-template-rows: repeat(3, 50px);
+    grid-gap: 10px;
+    width: 200px;
+    margin-left: 20px;
+    margin-top: 7px;
+}
+
+.zoom-pad {
+    display: grid;
+    grid-template-columns: repeat(3, 50px);
+    grid-template-rows: repeat(3, 50px);
+    grid-gap: 10px;
+    width: 200px;
+    margin-left: 20px;
+    margin-top: 7px;
+}
+.arrow-button {
+    width: 50px;
+    height: 50px;
+    background-color: #3C3C3C;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    transition: transform 0.1s ease; /* Smooth transition for scaling */
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+
+}
+
+.arrow-button:hover {
+    background-color: #1565c0; /* Highlight color on hover */
+}
+
+.ptz-arrow-button {
+    width: 50px;
+    height: 50px;
+    background-color: #1a1919;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    transition: transform 0.1s ease; /* Smooth transition for scaling */
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+
+}
+.ptz-arrow-button:hover {
+    background-color: #1565c0; /* Highlight color on hover */
+}
+
+@keyframes button-press {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.9); } /* Scale down to 90% */
+    100% { transform: scale(1); }
+}
+
+.ptz-input-wrapper {
+    display: flex;
+}
+
+.ptz-container {
+    display: flex;
+    flex-direction: column; /* Arrange elements in a column */
+    align-items: flex-start; /* Align items to the start */
+    margin-top: 7px;
+    margin-left: 19px;
+}
+.zoom-container {
+    display: flex;
+    flex-direction: column; /* Arrange elements in a column */
+    align-items: flex-start; /* Align items to the start */
+    margin-top: 7px;
+    margin-left: 19px;
+}
+
+.ptz-input {
+    width: 48px; /* Set the width to match the direction-pad buttons */
+    height: 50px; /* Set the height to match the direction-pad buttons */
+    background-color: #3C3C3C; /* Set the background color */
+    color: white; /* Set the text color */
+    border: none; /* Remove the border */
+    font-size: 12px; /* Set font size */
+    margin-right: 8px; /* Adjust spacing between input boxes */
+    text-align: center; /* Center the text horizontally */
+    caret-color: white; /* Change the cursor color */
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.45) inset;
+
+}
+
+.ptz-input:focus {
+    outline: 2px solid white; /* Change the outline color for focus */
+    outline-offset: 2px; /* Adjust the outline offset if needed */
+}
+
+
+.ptz-input:last-child {
+    margin-right: 0; /* Remove margin from the last input box */
+}
+
+
+.send-button {
+    width: 172px;
+    height: 30px;
+    margin-top: 10px; /* Add space between input boxes and send button */
+    padding: 6px 18px; /* Adjust padding */
+    border: none;
+    border-radius: 5px;
+    background-color: #1565c0;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.send-button:hover {
+    background-color: #1e88e5; /* Highlight color on hover */
+}
+
+
+.zoom-dropdown-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between dropdown and input */
+}
+
+.dropdown {
+    background-color: #3C3C3C;
+    color: white;
+    margin-top: 5px;
+    margin-left: 30px;
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+}
+
+.swap-dropdown1 select {
+    width: 80px; /* Adjust width as needed */
+    padding: 5px;
+    color: white;
+    font-size: 12px;
+    border: none;
+    border-radius: 5px; 
+    background-color: #3C3C3C;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+    padding-left: 10px;
+
+}
+
+.swap-dropdown2 select {
+    width: 80px; /* Adjust width as needed */
+    padding: 5px;
+    color: white;
+    font-size: 12px;
+    border: none;
+    border-radius: 5px; 
+    background-color: #3C3C3C;
+    cursor: pointer;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+    padding-left: 10px;
+}
+
+.dropdown-container {
+    display: flex; /* Use flexbox to align items */
+}
+
+
+.dropdown select:focus {
+    outline: none;
+    border-color: #007bff; /* Change focus color as needed */
+}
+
+
+.swap-wrapper {
+    display: flex;
+}
+
+.swap-buttons { 
+    display: flex;
+} 
+
+.spin-buttons { 
+    display: flex;
+} 
+.spin-container {
+    display: flex;
+    flex-direction: column; /* Arrange elements in a column */
+    align-items: flex-start; /* Align items to the start */
+    margin-top: 7px;
+    margin-left: 20px;
+}
+
+h3 {
+    font-size: 15px;
+    margin-top: -5px;
+    margin-bottom: 1px;
+    text-align: center; /* or left/right depending on your preference */
+}
+
+button.active {
+    background-color: #4CAF50; /* Green background for the active button */
+    color: white; /* White text for contrast */
+}
+
+.spin-pan-button, .spin-tilt-button, .spin-zoom-button, .spin-focus-button {
+    width: 30px;
+    height: 30px;
+    background-color: #3C3C3C;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 5px;
+    margin-bottom: 8px;
+    margin-top: 5px;
+    border-radius: 5px; 
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+
+} 
+
+.spin-pan-button:hover, .spin-tilt-button:hover, .spin-zoom-button:hover, .spin-focus-button:hover {
+    background-color: #1565c0; /* Highlight color on hover */
+} 
+
+.swap-num-button { 
+    width: 30px;
+    height: 30px;
+    background-color: #3C3C3C;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 5px;
+    margin-bottom: 8px;
+    margin-top: 5px;
+    border-radius: 5px; 
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+
+}   
+.swap-num-button:hover {
+    background-color: #1565c0; /* Highlight color on hover */
+} 
+
+.swap-preset-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-gap: 1px; /* Adjust space between buttons as needed */
+    margin-top: 10px;
+}
+
+.swap-preset-button:nth-child(4) {
+    grid-column: 1 / 2; /* Start at the first column on a new row */
+}
+
+.swap-twopreset-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-gap: 1px; /* Adjust space between buttons as needed */
+    margin-top: 10px;
+}
+
+.swap-preset-button { 
+    width: 53px;
+    height: 30px;
+    background-color: #3C3C3C;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 5px;
+    margin-bottom: 12px;
+    margin-top: 2px;
+    border-radius: 5px; 
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    letter-spacing: 0.5px;
+}   
+.swap-preset-button:hover {
+    background-color: #1565c0; /* Highlight color on hover */
+} 
+
+
+
+.swap-wide-preset-button {
+    width: 73px;
+    height: 30px;
+    background-color: #3C3C3C;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 5px;
+    margin-bottom: 12px;
+    margin-top: 2px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    letter-spacing: 0.5px;
+}
+.swap-wide-preset-button:hover {
+    background-color: #1565c0; /* Highlight color on hover */
+}
+
+.swap-container {
+    display: flex;
+    flex-direction: column; /* Arrange elements in a column */
+    align-items: flex-start; /* Align items to the start */
+    margin-top: 7px;
+    margin-left: 20px;
+}
+
+.swap-input {
+    width: 76px; /* Set the width to match the direction-pad buttons */
+    height: 40px; /* Set the height to match the direction-pad buttons */
+    background-color: #3C3C3C; /* Set the background color */
+    color: white; /* Set the text color */
+    border: none; /* Remove the border */
+    font-size: 12px; /* Set font size */
+    margin-right: 10px; /* Adjust spacing between input boxes */
+    text-align: center; /* Center the text horizontally */
+    caret-color: white; /* Change the cursor color */
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.45) inset;
+
+}
+.swap-input:focus {
+    outline: 2px solid white; /* Change the outline color for focus */
+    outline-offset: 2px; /* Adjust the outline offset if needed */
+}
+
+.swap-input:last-child {
+    margin-right: 0; /* Remove margin from the last input box */
+}
+
+.swap-button {
+    width: 170px;
+    height: 30px;
+    margin-top: 10px; /* Add space between input boxes and send button */
+    padding: 6px 18px; /* Adjust padding */
+    border: none;
+    border-radius: 5px;
+    background-color: #1565c0;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+
+}
+.swap-button:hover {
+    background-color: #1e88e5; /* Highlight color on hover */
+}
+
+.mpv-button {
+    width: 170px;
+    height: 30px;
+    margin-top: 10px; /* Add space between input boxes and send button */
+    padding: 6px 18px; /* Adjust padding */
+    border: none;
+    border-radius: 5px;
+    background-color: #6a6969;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+
+}
+
+.mpv-button.highlighted {
+    /* Add your highlighted styles here */
+    background-color: #40c015; /* Highlight color on hover */
+}
+
+.focus-wrapper {
+    display: flex;
+}   
+    
+.focus-container {
+    display: flex;
+    flex-direction: column; /* Arrange elements in a column */
+    align-items: flex-start; /* Align items to the start */
+    margin-top: 7px;
+    margin-left: 20px;
+}
+
+
+.other-wrapper, .ir-wrapper {
+    display: flex;
+}   
+    
+.other-container {
+    display: flex;
+    flex-direction: column; /* Arrange elements in a column */
+    align-items: flex-start; /* Align items to the start */
+    margin-top: 7px;
+    margin-left: 20px;
+}
+
+.ir-container {
+    display: flex;
+    flex-direction: column; /* Arrange elements in a column */
+    align-items: flex-start; /* Align items to the start */
+    margin-top: 7px;
+    margin-left: 20px;
+}
+
+    
+.focus-input {
+    width: 76px; /* Set the width to match the direction-pad buttons */
+    height: 50px; /* Set the height to match the direction-pad buttons */
+    background-color: #3C3C3C; /* Set the background color */
+    color: white; /* Set the text color */
+    border: none; /* Remove the border */
+    border-radius: 5px; /* Apply border radius */
+    font-size: 12px; /* Set font size */
+    margin-right: 10px; /* Adjust spacing between input boxes */
+    text-align: center; /* Center the text horizontally */
+    caret-color: white; /* Change the cursor color */
+    
+}
+.focus-input:focus {
+    outline: 2px solid white; /* Change the outline color for focus */
+    outline-offset: 2px; /* Adjust the outline offset if needed */
+}
+
+.focus-input:last-child {
+    margin-right: 0; /* Remove margin from the last input box */
+}
+
+.focus-button {
+    width: 170px;
+    height: 30px;
+    margin-top: 10px; /* Add space between input boxes and send button */
+    padding: 6px 18px; /* Adjust padding */
+    border: none;
+    border-radius: 5px;
+    background-color: #1565c0;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+
+}
+.focus-button:hover {
+    background-color: #1e88e5; /* Highlight color on hover */
+}
+
+.autofocus-button {
+    width: 76px;
+    height: 50px;
+    background-color: #3C3C3C;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    background-image: url('/img/focus_auto.svg');
+    background-size: 100% 100%; /* Stretch the image to fill the button */
+    background-repeat: no-repeat; /* Ensure the background image does not repeat */
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+
+}
+
+.vid-button {
+    width: 76px;
+    height: 50px;
+    background-color: #3C3C3C;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    background-image: url('/img/focus_auto.svg');
+    background-size: 100% 100%; /* Stretch the image to fill the button */
+    background-repeat: no-repeat; /* Ensure the background image does not repeat */
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+
+}
+
+.autofocus-button:hover {
+    background-color: #1565c0; /* Highlight color on hover */
+}
+
+.volume-button {
+    width: 55px;
+    height: 50px;
+    background-color: #3C3C3C;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    background-image: url('/img/volume.svg');
+    background-size: 100% 100%; /* Stretch the image to fill the button */
+    background-repeat: no-repeat; /* Ensure the background image does not repeat */
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.volume-button:hover {
+    background-color: #1565c0; /* Highlight color on hover */
+}
+
+
+.nfc-button {
+    width: 50px;
+    height: 50px;
+    background-color: #3C3C3C;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: transform 0.1s ease; /* Smooth transition for scaling */
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+
+}
+.nfc-button:hover {
+    background-color: #1565c0; /* Highlight color on hover */
+}
+.nfc-button.highlighted {
+    /* Add your highlighted styles here */
+    background-color: #40c015; /* Highlight color on hover */
+}
+
+.cf-button {
+    width: 50px;
+    height: 50px;
+    background-color: #3C3C3C;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: transform 0.1s ease; /* Smooth transition for scaling */
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+
+}
+.cf-button:hover {
+    background-color: #1565c0; /* Highlight color on hover */
+}
+.cf-button.highlighted {
+    /* Add your highlighted styles here */
+    background-color: #40c015; /* Highlight color on hover */
+}
+
+
+.spincircle-button {
+    margin-left: 10px; /* Adjust the margin to increase or decrease the space between buttons */
+    width: 55px;
+    height: 50px;
+    background-color: #3C3C3C;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    background-image: url('/img/circlespin2.png');
+    //background-image: url('/img/click-hand.png');
+    background-size: 95% 95%; /* Stretch the image to fill the button */
+    background-repeat: no-repeat; /* Ensure the background image does not repeat */
+    background-position: center;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.spincircle-button:hover {
+    background-color: #1565c0; /* Highlight color on hover */
+}
+
+.spincircle-button.highlighted {
+    /* Add your highlighted styles here */
+    background-color: #40c015; /* Highlight color on hover */
+}
+
+
+.reset-button {
+    margin-left: 10px; /* Adjust the margin to increase or decrease the space between buttons */
+    width: 55px;
+    height: 50px;
+    background-color: #3C3C3C;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    background-image: url('/img/reset.png');
+    background-size: 75% 75%; /* Stretch the image to fill the button */
+    background-repeat: no-repeat; /* Ensure the background image does not repeat */
+    background-position: center;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.reset-button:hover {
+    background-color: #1565c0; /* Highlight color on hover */
+}
+
+.ir-auto-button, .ir-on-button, .ir-off-button {
+    width: 50px;
+    height: 50px;
+    background-color: #3C3C3C;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    text-align: center; /* Center the text horizontally */
+    background-size: 100% 100%; /* Stretch the image to fill the button */
+    background-repeat: no-repeat; /* Ensure the background image does not repeat */
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    letter-spacing: 0.5px;
+
+}
+
+.ir-on-button, .ir-off-button  {
+    margin-left: 10px; /* Adjust the margin to increase or decrease the space between buttons */
+}
+
+.ir-auto-button:hover, .ir-on-button:hover, .ir-off-button:hover  {
+    background-color: #1565c0; /* Highlight color on hover */
+}
+
+.mode-labels {
+    display: flex;
+}
+
+.direction-heading {
+    margin-right: 10px; /* Adjust as needed */
+}
+/* Adjust slider size and position */
+.slider {
+    width: 150px; /* Adjust width as needed */
+    margin-top: 10px; /* Adjust margin top as needed */
+    margin-bottom: 10px; /* Adjust margin bottom as needed */
+    margin-left: 25px;
+}
+
+.hidden {
+    display: none;
+}
+
+.pad-heading-container {
+    display: flex;
+}
+
+.direction-move-heading.active,
+.direction-focus-heading.active,
+.direction-zoom-heading.active {
+    color: #6082B6;
+    font-weight: bold;
+    text-decoration: underline;
+    text-decoration-thickness: 2px; /* Adjust the thickness as needed */
+}
+
+.volume-control-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #222222;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    min-width: 400px;
+    z-index: 10500; /* Above fullcam dialog (9000) and quickswap overlay (10000) */
+
+}
+
+.volume-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.volume-container label {
+    flex: 1;
+    margin-right: 10px;
+    color: white;
+    font-size: large;
+}
+
+.volume-container labelvol {
+    flex: 1;
+    color: white;
+    margin-left: 20px;
+    width: 20px; /* Fixed width for the labels */
+}
+.volume-container button {
+    flex-shrink: 0; /* Prevent button from shrinking */
+    position: absolute;
+    right: 0;
+    margin-right: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 3px 3px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: small;
+
+}
+/* Style for the mute button */
+.volume-container .mute-button {
+    flex-shrink: 0; /* Prevent button from shrinking */
+    margin-right: 60px;
+    background-color: green;
+    color: #fff;
+    border: none;
+    padding: 4px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: small;
+    width: 20px;
+    height: 20px;
+    background-size: cover;
+    /* Add other styles as needed */
+}
+
+/* Style for the unmute button */
+.volume-container .unmute-button {
+    flex-shrink: 0; /* Prevent button from shrinking */
+    margin-right: 60px;
+    background-color: red;
+    color: #fff;
+    border: none;
+    padding: 4px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: small;
+    width: 20px;
+    height: 20px;
+    background-size: cover;
+    /* Add other styles as needed */
+}
+
+.command-display {
+    margin-top: 21px;
+    margin-left: 8px;
+}
+.slider-container {
+    display: flex;
+    align-items: center; /* Align items vertically */
+}
+
+/* Base styles for the slider */
+.slider {
+    margin-top: 12px;
+    width: 110px; /* Adjust width as needed */
+    -webkit-appearance: none; /* Remove default styles (webkit) */
+    appearance: none; /* Remove default styles */
+    height: 10px; /* Set height of the slider */
+    background: #ccc; /* Color of the slider track */
+
+    /* Styles for Mozilla Firefox */
+    --thumb-color: #1565c0; /* Color of the slider thumb */
+}
+
+/* Slider thumb style */
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Remove default styles (webkit) */
+    appearance: none; /* Remove default styles */
+    width: 18px; /* Width of the slider thumb */
+    height: 18px; /* Height of the slider thumb */
+    background: var(--thumb-color); /* Color of the slider thumb */
+    border-radius: 50%; /* Rounded corners */
+    cursor: pointer; /* Cursor style */
+}
+
+/* Slider thumb style for Mozilla Firefox */
+.slider::-moz-range-thumb {
+    width: 18px; /* Width of the slider thumb */
+    height: 18px; /* Height of the slider thumb */
+    background: var(--thumb-color); /* Color of the slider thumb */
+    border: none; /* Remove border */
+    border-radius: 50%; /* Rounded corners */
+    cursor: pointer; /* Cursor style */
+}
+
+
+.zoominput {
+    width: 55px; /* Set the width to match the direction-pad buttons */
+    height: 30px; /* Set the height to match the direction-pad buttons */
+    background-color: #3C3C3C; /* Set the background color */
+    color: white; /* Set the text color */
+    border: none; /* Remove the border */
+    font-size: 12px; /* Set font size */
+    margin-top: 5px;
+    margin-left: 10px; /* Adjust spacing between input boxes */
+    text-align: center; /* Center the text horizontally */
+    caret-color: white; /* Change the cursor color */
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.45) inset;
+}
+.zoominput:focus {
+    outline: 1px solid white; /* Customize the focus outline */
+    outline-offset: 0px; /* Optional: add space between the outline and element */
+}
+.zoom-slider-wrapper {
+    display: flex;
+    margin-left: -25px;
+    margin-bottom: 5px;
+}
+
+
+.preset-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: 24px;
+}
+
+.preset-header-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+    margin-right: 8px;
+}
+
+/* In grid-layout, match margin-right to item trailing gap (25px) so the
+   search box right edge aligns exactly with the last column's right edge. */
+.grid-layout .preset-header-right {
+    margin-right: 25px;
+}
+
+/* Hide the "- Presets -" label when grid collapses to 1 column */
+.grid-single-col .label-preset-heading {
+    display: none;
+}
+
+.sort-icon {
+    cursor: pointer;
+    opacity: 0.7;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+}
+.sort-icon img {
+    width: 18px;
+    height: 18px;
+    display: block;
+    pointer-events: none;
+}
+.sort-icon:hover {
+    opacity: 1;
+}
+.sort-icon.active-icon {
+    opacity: 1;
+    filter: invert(49%) sepia(98%) saturate(456%) hue-rotate(180deg) brightness(95%);
+}
+
+.sort-icon-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.sort-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    /* No margin-top — padding-top bridges the gap so hover doesn't break */
+    padding-top: 6px;
+    z-index: 9999;
+}
+
+/* Inner box so the transparent padding-top doesn't show the background */
+.sort-menu-inner {
+    background: #1e1e1e;
+    border: 1px solid #444;
+    border-radius: 6px;
+    min-width: 140px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    padding: 4px 0;
+}
+
+.sort-icon-wrapper:hover .sort-menu {
+    display: block;
+}
+
+.sort-menu-item {
+    padding: 7px 14px;
+    font-size: 13px;
+    color: #ccc;
+    cursor: pointer;
+    white-space: nowrap;
+    user-select: none;
+}
+
+.sort-menu-item:hover {
+    background: #2a2a2a;
+    color: #fff;
+}
+
+.sort-menu-item.active {
+    color: #44aaff;
+}
+
+.sort-menu-divider {
+    height: 1px;
+    background: #333;
+    margin: 4px 0;
+}
+
+.sort-menu-label {
+    padding: 5px 14px 2px;
+    font-size: 11px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    user-select: none;
+}
+
+.grid-layout.grid-large .preset-image,
+.grid-layout.grid-large .custom-preset-image {
+    width: 295px;
+    height: 166px;
+}
+
+.grid-layout.grid-large .preset-button,
+.grid-layout.grid-large .custom-preset-button {
+    width: 295px;
+}
+
+/* 295px item + 25px gap = 320px; 4 columns needs 1280px */
+.grid-layout.grid-large .preset-pad,
+.grid-layout.grid-large .custom-preset-pad {
+    max-width: 1280px;
+}
+
+/* Card needs pad's 1280px content width PLUS the pad's own 20px margin-left */
+.grid-layout.grid-large .preset-container-card {
+    max-width: 1300px;
+}
+
+.vidbutton-smartzoom {
+    width: 40px; /* Adjust size as needed */
+    height: 35px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    background-image: url('/img/smartselect.png'); /* Set the PNG icon */
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+
+.vidbutton-smartzoom:hover {
+    background-color: #1e88e5;
+    transform: scale(1.15); /* Slightly larger hover effect */
+}
+
+.vidbutton-smartzoom.highlighted {
+    background-color: #1565c0;
+
+}
+
+
+.vidbuttondiv {
+    display: flex;
+    justify-content: space-between;
+    width: fit-content;
+    margin-left: 20px;
+    margin-bottom: -15px;
+}
+.vidbuttons:hover {
+    background-color: #1e88e5;
+}
+
+.vidbuttons {
+    position: relative;
+    margin-top: 10px;
+    background-color: #3C3C3C;
+    color: white;
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: lighter; /* Set font weight to normal */
+    text-align: center; /* Center text horizontally */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8), -1px -1px 2px rgba(255, 255, 255, 0.1);
+    letter-spacing: 0.5px;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+/* Style for the button container */
+.button-container {
+    display: flex;                    /* Use Flexbox for layout */
+    justify-content: space-between;  /* Space between left group and right button */
+    align-items: center;              /* Vertically center the buttons */
+    width: 100%;                       /* Full width to avoid overflow */
+    box-sizing: border-box;           /* Include padding in the container’s width */
+    padding: 0 10px;                  /* Optional padding for spacing */
+    margin-bottom: -35px;
+    margin-top: 10px;
+    zoom: 90%;
+    margin-left: 10px;
+}
+
+/* Style for button group on the left */
+.left-buttons {
+    display: flex;                    /* Use Flexbox for button grouping */
+    gap: 15px;                        /* Gap between buttons; adjust as needed */
+    margin-left: -15px;               /* Move the left button group 20px to the left */
+}
+
+.right-buttons {
+    display: flex;                    /* Use Flexbox for button grouping */
+    gap: 15px;                        /* Gap between buttons; adjust as needed */
+    margin-right: 5px;               /* Move the left button group 20px to the left */
+}
+
+
+/* General button styles */
+.button-container button {
+    background-color: #3C3C3C;       /* Button background color */
+    color: white;                    /* Button text color */
+    border: none;                    /* Remove default border */
+    padding: 5px 10px;              /* Padding inside buttons */
+    border-radius: 5px;              /* Rounded corners */
+    cursor: pointer;                 /* Pointer cursor on hover */
+    font-size: 15px;                 /* Font size for button text */
+    font-weight: lighter;            /* Font weight */
+    text-align: center;              /* Center text horizontally */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8), -1px -1px 2px rgba(255, 255, 255, 0.1);
+    letter-spacing: 0.5px;           /* Letter spacing */
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.vidbuttons {
+    background-color: #3C3C3C;       /* Button background color */
+    color: white;                    /* Button text color */
+    border: none;                    /* Remove default border */
+    padding: 5px 10px;              /* Padding inside buttons */
+    border-radius: 5px;              /* Rounded corners */
+    cursor: pointer;                 /* Pointer cursor on hover */
+    font-size: 15px;                 /* Font size for button text */
+    font-weight: lighter;            /* Font weight */
+    text-align: center;              /* Center text horizontally */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8), -1px -1px 2px rgba(255, 255, 255, 0.1);
+    letter-spacing: 0.5px;           /* Letter spacing */
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+/* Specific button styles */
+.vidbutton {
+    /* No extra styles needed; use general button styles */
+}
+
+.vidbutton2 {
+    width: 40px; /* Adjust size as needed */
+    height: 35px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    background-image: url('/img/camswap.png'); /* Set the PNG icon */
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.fullcam-titlebar {
+    display: flex;
+    align-items: center;
+    height: 32px;
+    min-height: 32px;
+    padding: 0 8px;
+    background: #1a1a1a;
+    border-bottom: 1px solid #333;
+    cursor: move;
+    user-select: none;
+    flex-shrink: 0;
+}
+
+.fullcam-body {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+    background: #000;
+}
+
+.fullcam-btn {
+    background: transparent;
+    border: none;
+    color: #ccc;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 2px 6px;
+    margin-left: 4px;
+    border-radius: 3px;
+}
+
+.fullcam-btn:hover {
+    background: #333;
+    color: #fff;
+}
+
+.vidbutton-fullcam {
+    height: 35px;
+    padding: 0 8px;
+    background-color: transparent;
+    border: 1px solid #555;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 11px;
+    font-weight: bold;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.vidbutton-fullcam:hover {
+    background-color: #1e88e5;
+    border-color: #1e88e5;
+    transform: scale(1.05);
+}
+
+.vidbutton-fullcam.active {
+    background-color: #1565c0;
+    border-color: #1565c0;
+}
+
+.button-fullcam {
+    background-color: transparent;
+    border: 1px solid #555;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 11px;
+    font-weight: bold;
+    white-space: nowrap;
+    cursor: pointer;
+    padding: 6px 10px;
+}
+
+.button-fullcam:hover {
+    background-color: #1e88e5;
+    border-color: #1e88e5;
+}
+
+.button-fullcam.active {
+    background-color: #1565c0;
+    border-color: #1565c0;
+}
+
+/* Mobile long-press submenu: Full Cam is a text pill, not an icon circle —
+   sharing .submenu-button's fixed 46x46 circle squeezed the "Full Cam"
+   label, and the overflowing text visually covered the adjacent Swap button. */
+.submenu-button.button-fullcam {
+    width: auto;
+    height: 38px;
+    border-radius: 8px;
+    padding: 0 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vidbutton-wolftext {
+    width: 40px; /* Adjust size as needed */
+    height: 35px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    background-image: url('/img/wolf-text.png'); /* Set the PNG icon */
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.vidbutton-wolftext.active {
+  background-color: #1565c0;
+}
+
+.overlayswapbutton {
+    width: 50px; /* Adjust size as needed */
+    height: 50px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    background-image: url('/img/camswap.png'); /* Set the PNG icon */
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+
+.vidbutton1 {
+    width: 35px; /* Adjust size as needed */
+    height: 35px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-image: url('/img/grid-icon.png'); /* Set the PNG icon */
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.circlespin-button {
+    width: 35px; /* Adjust size as needed */
+    height: 35px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-image: url('/img/circlespin2.png');
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+
+.vidbutton11, .vidbutton-add-preset {
+    width: 35px; /* Adjust size as needed */
+    height: 35px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-image: url('/img/preset-save.png'); /* Set the PNG icon */
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.vidbuttongetInfo {
+    width: 35px; /* Adjust size as needed */
+    height: 35px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-image: url('/img/getinfoicon.png'); /* Set the PNG icon */
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.vidbutton-customfocus {
+    width: 35px; /* Adjust size as needed */
+    height: 35px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-image: url('/img/preset-save.png'); /* Set the PNG icon */
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.vidbutton-loadcf {
+    width: 35px; /* Adjust size as needed */
+    height: 35px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-image: url('/img/getinfoicon.png'); /* Set the PNG icon */
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.vidbutton14 {
+    width: 35px; /* Adjust size as needed */
+    height: 35px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-image: url('/img/last-position2.png'); /* Set the PNG icon */
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.vidbutton54 {
+    width: 35px; /* Adjust size as needed */
+    height: 35px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-image: url('/img/preset-find.png'); /* Set the PNG icon */
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.vidbutton12 {
+    width: 35px; /* Adjust size as needed */
+    height: 35px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-image: url('/img/screenshot-icon.png'); /* Set the PNG icon */
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center -1px; /* Slightly lift the background */
+    cursor: pointer;
+}
+
+.vidbutton13 {
+    width: 35px; /* Adjust size as needed */
+    height: 35px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-image: url('/img/gallery.png'); /* Set the PNG icon */
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center -1px; /* Slightly lift the background */
+    cursor: pointer;
+}
+
+.vidbutton22 {
+    width: 40px; /* Adjust size as needed */
+    height: 35px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    background-image: url('/img/panoicon.png'); /* Set the PNG icon */
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.vidbutton222 {
+    width: 40px; /* Adjust size as needed */
+    height: 35px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    background-image: url('/img/checkroundsicon.png'); /* Set the PNG icon */
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.command-display {
+    flex-grow: 1; /* Allow the commandDisplay to expand and take up available space */
+    text-align: center; /* Center the text inside the element */
+    margin-top: -2px;
+    color: lightblue !important; /* Force the color */
+    font-weight: bold; /* This makes the text bold */
+
+}
+
+.button-separator {
+    width: 1px; /* Thin separator line */
+    height: 35px; /* Adjust height to match button size */
+    background-color: rgba(255, 255, 255, 0.2); /* Light color for the line */
+}
+
+
+.vidbutton33 {
+    width: 35px; /* Adjust size as needed */
+    height: 35px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-image: url('/img/vod.png'); /* Set the PNG icon */
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center; /* Slightly lift the background */
+    cursor: pointer;
+}
+
+.vidbuttonResetLivecams {
+    width: 35px; /* Adjust size as needed */
+    height: 35px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-image: url('/img/resetlivecamsicon.png'); /* Set the PNG icon */
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center; /* Slightly lift the background */
+    cursor: pointer;
+}
+
+.vidbuttonResetYoutube {
+    width: 35px;
+    height: 35px;
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-image: url('/img/youtube-icon.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+
+.vidbutton34 {
+    width: 35px; /* Increased width to accommodate padding */
+    height: 35px; /* Increased height to accommodate padding */
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-image: url('/img/pog.png');
+    background-size: 25px 25px; /* Size of the original image */
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.vidbuttonsync {
+    width: 35px; /* Increased width to accommodate padding */
+    height: 35px; /* Increased height to accommodate padding */
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-image: url('/img/sync.png');
+    background-size: 25px 25px; /* Size of the original image */
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.vidbutton3 {
+    width: 35px; /* Adjust size as needed */
+    height: 35px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-image: url('/img/areaselect.png'); /* Set the PNG icon */
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center; /* Slightly lift the background */
+    cursor: pointer;
+}
+
+.vidbutton4 {
+    width: 35px; /* Adjust size as needed */
+    height: 35px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-image: url('/img/click-hand.png'); /* Set the PNG icon */
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center; /* Slightly lift the background */
+    cursor: pointer;
+}
+
+.vidbutton44 {
+    width: 35px; /* Adjust size as needed */
+    height: 35px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-image: url('/img/fullscreen.png'); /* Set the PNG icon */
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center; /* Slightly lift the background */
+    cursor: pointer;
+}
+
+.vidbutton-focus {
+    width: 35px;
+    height: 35px;
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-image: url('/img/buttonFocus.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.vidbuttonCollapse {
+    width: 35px; /* Adjust size as needed */
+    height: 25px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-image: url('/img/icon-showhide.png'); /* Set the PNG icon */
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center; /* Slightly lift the background */
+    cursor: pointer;
+}
+
+.vidbutton45 {
+    width: 35px; /* Adjust size as needed */
+    height: 35px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-image: url('/img/left-menu.png'); /* Set the PNG icon */
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center; /* Slightly lift the background */
+    cursor: pointer;
+}
+
+.vidbutton47 {
+    width: 35px; /* Adjust size as needed */
+    height: 35px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-image: url('/img/escbutton-red.png'); /* Set the PNG icon */
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center; /* Slightly lift the background */
+    cursor: pointer;
+}
+
+.vidbutton-shift {
+    width: 35px; /* Adjust size as needed */
+    height: 35px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-image: url('/img/selectcam.png'); /* Set the PNG icon */
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center; /* Slightly lift the background */
+    cursor: pointer;
+}
+
+.vidbutton-unmute{
+    width: 35px; /* Adjust size as needed */
+    height: 35px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center; /* Slightly lift the background */
+    cursor: pointer;
+}
+
+
+.vidbutton-unmute.muted {
+    background-image: url('/img/mute.png'); /* Set the PNG icon */
+}
+
+.vidbutton-unmute.unmuted {
+    background-image: url('/img/unmute.png'); /* Set the PNG icon */
+}
+
+
+.vidbutton-zoom {
+    width: 35px; /* Adjust size as needed */
+    height: 35px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-image: url('/img/zoomdialog.png'); /* Set the PNG icon */
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center; /* Slightly lift the background */
+    cursor: pointer;
+}
+
+.vidbutton-pad {
+    width: 35px; /* Adjust size as needed */
+    height: 35px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-image: url('/img/buttonpad.png'); /* Set the PNG icon */
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center; /* Slightly lift the background */
+    cursor: pointer;
+}
+
+
+.vidbutton48 {
+    width: 35px; /* Adjust size as needed */
+    height: 35px;
+    background-color: transparent; /* Or any preferred background */
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-image: url('/img/enterbutton-green.png'); /* Set the PNG icon */
+    background-size: contain; /* Ensure the icon fits properly */
+    background-repeat: no-repeat;
+    background-position: center; /* Slightly lift the background */
+    cursor: pointer;
+}
+
+.vidbutton3.highlighted, .vidbutton4.highlighted, .vidbutton13.highlighted, .vidbutton33.highlighted, .vidbutton34.highlighted, .vidbutton22.highlighted {
+    background-color: #1565c0; /* Highlight color for button3 */
+}
+
+.vidbutton-shift.highlighted, .vidbutton-zoom.highlighted {
+    background-color: #ffcc00; /* Highlight color for button3 */
+}
+
+
+
+.vidbutton:hover, .vidbutton2:hover, .vidbutton3:hover, .vidbutton4:hover, .vidbutton1:hover, .vidbuttonResetLivecams:hover, .vidbuttonResetYoutube:hover, .vidbuttongetInfo:hover, .vidbutton11:hover, .vidbutton-add-preset:hover, .vidbutton12:hover, .vidbutton13:hover, .vidbutton54:hover, .vidbutton14:hover, .vidbutton33:hover, .vidbutton34:hover, .vidbutton44:hover, .vidbutton22:hover, .vidbuttonsync:hover, .vidbutton-customfocus:hover, .vidbutton-loadcf:hover {
+    background-color: #1e88e5;
+    transform: scale(1.15); /* Slightly larger hover effect */
+}
+  .camera-button {
+    margin-top: 12px;
+    margin-left: -5px; /* Adjust spacing as desired */
+    /* Other styles for the button as needed */
+  }
+  
+  .camera-button-container {
+    display: flex; /* Or inline-flex for inline layout */
+    /* Other styles for the container as needed */
+  }
+  
+  .camera-thumbnail {
+    cursor: pointer;
+    margin-left: 3px;
+    margin-bottom: 5px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Creates a circle */
+    z-index: 2;
+  }
+ 
+  .quickswap-camera-thumbnail {
+    cursor: pointer;
+    margin-left: 5px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Creates a circle */
+    z-index: 2;
+  } 
+
+.quickswap-camera-thumbnail:hover {
+    /* Styles for the selected thumbnail */
+    background-color: #6082B6; /* Darker background color on hover */
+}
+
+
+.selected-thumbnail {
+    /* Styles for the selected thumbnail */
+    border: 2px solid #6082B6; /* Example */
+}
+ 
+#video-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: block;
+    margin-top: 40px;
+    margin-left: -5px;
+}
+/* ─── Preset dialog ──────────────────────────────────────────────────────── */
+
+/* Overlay backdrop — fullscreen, flex-centred */
+.dialog {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9500;
+    background: transparent;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    overflow-y: auto;
+}
+
+.dialog.is-open {
+    display: flex;
+}
+
+/* Dialog panel — matches #video-container-card style */
+#dialog .dialog-content {
+    position: relative;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.45) inset;
+    width: min(85%, 900px);
+    max-height: 85vh;
+    max-height: 85dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding-bottom: 14px;
+}
+
+/* Narrower panel for list layout */
+#dialog.list-layout .dialog-content {
+    width: min(85%, 440px);
+}
+
+/* Header row: title | layout-icons — spacer — sort + search | × */
+#dialog .dialog-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px 10px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+}
+
+#dialog .dialog-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    padding-right: 8px;
+    border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Controls group: layout icons left, sort+search pushed to right */
+#dialog .dialog-header-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+#dialog .dialog-header-controls .preset-layout-icons {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+/* Sort icon pushed to the right edge — search follows it */
+#dialog .dialog-header-controls .sort-icon-wrapper {
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+/* Search input — fixed comfortable width */
+#dialog .dialog-header-controls input[type="text"],
+#dialog .dialog-header-controls input[type="search"] {
+    flex-shrink: 0;
+    width: 160px;
+}
+
+/* Close button */
+.close-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 22px;
+    line-height: 1;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.15s ease, background 0.15s ease;
+    flex-shrink: 0;
+}
+
+.close-button:hover {
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.close-button:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.4);
+    outline-offset: 1px;
+}
+
+/* Scrollable body */
+#dialog .dialog-body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 14px 20px 20px;
+    overscroll-behavior: contain;
+}
+
+#dialog .dialog-body::-webkit-scrollbar {
+    width: 5px;
+}
+
+#dialog .dialog-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#dialog .dialog-body::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 3px;
+}
+
+/* Preset container inside dialog */
+.dialog .preset-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* Search results pad */
+.dialog-filtered-pad {
+    display: none;
+    flex-wrap: wrap;
+}
+
+.dialog-filtered-pad.grid-layout {
+    display: flex;
+}
+
+.dialog-filtered-pad.list-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+}
+
+.dialog-filtered-pad:empty {
+    display: none;
+}
+
+/* Body scroll lock */
+.no-scroll {
+    overflow: hidden;
+}
+
+/* ── Mobile — bottom-sheet style ─────────────────────────────────────────── */
+@media (max-width: 640px) {
+    .dialog {
+        padding: 0;
+        align-items: flex-end;
+    }
+
+    #dialog .dialog-content {
+        width: 100%;
+        max-height: 90vh;
+        max-height: 90dvh;
+        border-radius: 16px 16px 0 0;
+    }
+
+    #dialog.list-layout .dialog-content {
+        width: 100%;
+    }
+
+    #dialog .dialog-header {
+        padding: 14px 16px 10px;
+    }
+
+    #dialog .dialog-body {
+        padding: 10px 16px 20px;
+    }
+}
+
+
+/* Hide scrollbars for Webkit browsers (Chrome, Safari, newer Edge) */
+html, body {
+    overflow: -moz-scrollbars-none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer and older Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+    width: 0 !important; /* Webkit browsers */
+    height: 0 !important;
+}
+
+.left-menu {
+  position: relative;
+  flex-shrink: 0;
+    height: 100%;
+    overflow-y: auto;
+    margin-top: -5px;
+    zoom: 80%;
+    min-width: 150px !important;
+}
+
+.camera-grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    border: none;
+    margin-top: 25px;
+    margin-left: 20px;
+    max-width: 1000px; /* Adjust the value as needed */
+    max-height: 920px; /* Adjust the value as needed */
+    min-height: 200px; /* Adjust the value as needed */
+    overflow-y: auto;
+}
+/* ── Swap dialog centering fix ───────────────────────────────────────────── */
+/* The JS uses top:32% + translate(-50%,-50%) which clips at the top when the
+   content reaches max-height. Override with proper flex centering. */
+#swapDialog {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: visible !important;
+    background-color: transparent !important;
+}
+
+#swapDialog .dialog-content {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    max-height: 80vh;
+    overflow: hidden !important;
+    margin: auto;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    backdrop-filter: blur(30px) !important;
+    -webkit-backdrop-filter: blur(30px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.45) inset !important;
+}
+
+/* ── PIP dialog centering fix ────────────────────────────────────────────── */
+#pipDialog {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: visible !important;
+    background-color: transparent !important;
+}
+
+#pipDialog .dialog-content {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    width: min(420px, 92vw) !important;
+    max-height: 85vh !important;
+    overflow: hidden !important;
+    margin: auto;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    backdrop-filter: blur(30px) !important;
+    -webkit-backdrop-filter: blur(30px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.45) inset !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.pip-dialog-header {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 14px 16px 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    gap: 8px;
+}
+
+.pip-dialog-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    flex: 1;
+}
+
+.pip-dialog-body {
+    padding: 16px 20px 20px;
+    overflow-y: auto;
+    flex: 1 1 auto;
+}
+
+.pip-position-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.pip-position-btn {
+    padding: 6px 14px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.pip-position-btn:hover {
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+}
+
+.pip-position-btn.active {
+    background: rgba(80, 140, 255, 0.4);
+    border-color: rgba(80, 140, 255, 0.7);
+    color: #fff;
+}
+
+.pip-dialog-body label {
+    display: block;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 4px;
+    margin-top: 8px;
+}
+
+.pip-dialog-body label:first-of-type { margin-top: 0; }
+
+.pip-dialog-body select {
+    width: 100%;
+    margin-bottom: 4px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 6px;
+    color: #e0e0e0;
+    padding: 6px 8px;
+    font-size: 13px;
+}
+
+.pip-dialog-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 18px;
+    padding-bottom: 18px;
+}
+
+.pip-dialog-actions button {
+    padding: 8px 20px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.09);
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.pip-dialog-actions button:hover {
+    background: rgba(255, 255, 255, 0.18);
+    color: #fff;
+}
+
+/* ── Add Preset dialog ───────────────────────────────────────────────────── */
+#addPresetDialog {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+#addPresetDialog .dialog-content {
+    position: relative;
+    width: min(380px, 92vw);
+    max-height: 85vh;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.45) inset;
+    display: flex;
+    flex-direction: column;
+}
+
+.add-preset-img-wrap {
+    position: relative;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    min-height: 80px;
+}
+
+.add-preset-img {
+    display: block;
+    width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+    opacity: 0.3;
+}
+
+.add-preset-img-status {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 12px;
+    pointer-events: none;
+}
+
+.add-preset-reload-btn {
+    display: block;
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.add-preset-reload-btn:hover {
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+}
+
+.add-preset-name-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px 8px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 6px;
+    color: #e0e0e0;
+    font-size: 13px;
+}
+
+/* ── Swap dialog ─────────────────────────────────────────────────────────── */
+.swap-dialog-header {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    gap: 4px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.swap-dialog-header .swap-dialog-search {
+    margin-left: auto;
+    width: 140px;
+    flex-shrink: 0;
+}
+
+/* Dialog container styling */
+.dialog-camera-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust width to ensure proper sizing */
+    gap: 15px; /* Reduce the gap between grid items */
+    padding: 20px;
+    background-color: #1c1c1c; /* Dark background for contrast */
+}
+
+.dialog-camera-button-container {
+    position: relative;
+    background-color: #333; /* Use a slightly lighter color for contrast */
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dialog-camera-button-container img {
+    width: 100%;
+    height: 150px; /* Set a fixed height to make grid uniform */
+    object-fit: cover;
+    border-radius: 8px 8px 0 0; /* Rounded top corners */
+}
+
+.dialog-camera-button {
+    width: 100%; /* Adjust width as needed */
+    display: block; /* Ensure proper alignment */
+    margin: 0 auto 0px; /* Center image and button and add space below */
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); /* Add 3D shadow effect */
+    cursor: pointer; /* Add cursor pointer */
+    border-top-left-radius: 0px; /* Adjust the radius for the top-left corner */
+    border-top-right-radius: 0px; /* Adjust the radius for the top-right corner */
+    border-bottom-left-radius: 5px; /* Keep the bottom-left corner square */
+    border-bottom-right-radius: 5px; /* Keep the bottom-right corner square */
+    height: 30px; /* Adjust height of the button */
+    background-color: #333232; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove border */
+    cursor: pointer; /* Add cursor pointer */
+    font-size: 18px; /* Adjust font size */
+}
+
+.dialog-camera-button.active {
+    background-color: #007bff; /* Active button color */
+}
+
+.dialog-camera-button-container:hover {
+    transform: scale(1.05); /* Slightly larger hover effect */
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+}
+
+/* Button styles */
+.category-button {
+    background-color: #1c1c1c; /* Button color */
+    color: white; /* Text color */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin: 5px; /* Spacing between buttons */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+/* Active state for category button */
+.category-button.active {
+    background-color: #0056b3; /* Darker blue for active button */
+}
+
+/* Hover effect for buttons */
+.category-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+
+.introjs-tooltip {
+  background-color: #333 !important; /* Dark background */
+  color: #fff !important;            /* White text */
+  border-radius: 5px;                /* Rounded corners */
+  padding: 2px 2px; /* Reduce padding to tighten the content */
+  font-size: 14px;                   /* Larger text */
+  line-height: 1.5;                  /* Better readability */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+  border: 1px solid #555;            /* Lighter border */
+}
+
+.introjs-helperLayer {
+  background-color: rgba(0, 255, 0, 0.3); /* Softer green highlight */
+  z-index: 1000;
+}
+
+.introjs-tooltiptext {
+  color: #fff !important;
+}
+
+.introjs-arrow {
+  border-color: #555 transparent transparent transparent !important; /* Slightly lighter arrow */
+}
+
+.introjs-button {
+  background-color: #4CAF50; /* Green button */
+  color: #fff;
+  border-radius: 5px;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.introjs-button:hover {
+  background-color: #45a049;
+}
+
+.introjs-tooltip h3, .introjs-tooltip strong {
+  font-weight: bold;
+  color: #FFD700; /* Gold text for headings */
+  margin-bottom: 10px;
+}
+
+#loading {
+    position: fixed; /* Fix position to the viewport */
+    top: 0;
+    left: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+    z-index: 1000; /* Ensure it's above other content */
+    display: flex; /* Use flexbox to center the content */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    backdrop-filter: blur(5px); /* Add blur effect to the background */
+}
+
+#loading img {
+    max-width: 80%; /* Adjust the image size to not overflow the screen */
+    max-height: 80%; /* Adjust the image size to not overflow the screen */
+    display: block; /* Ensure the image is treated as a block element */
+    margin: auto; /* Center the image within the flex container */
+}
+
+.custom-info-icon {
+    font-size: 1.4em; /* Adjust this value as needed */
+    width: 30px; /* Adjust as needed */
+    height: 30px; /* Adjust as needed */
+    margin-left: 10px; /* Adjust as needed */
+    position: relative;
+    top: -2px;
+    cursor: pointer;
+}
+
+.vid-info-icon {
+    font-size: 1.7em; /* Adjust this value as needed */
+    width: 35px; /* Adjust as needed */
+    height: 35px; /* Adjust as needed */
+    position: relative;
+    top: 5px;
+    cursor: pointer;
+}
+.infodialog {
+                background-color: rgba(50, 50, 50, 0.8); /* Semi-transparent background */
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px); /* For Safari */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+                border: 2px solid #ccc;
+                padding: 20px;
+                border-radius: 5px;
+                position: absolute; /* Position absolutely within the dialog */
+                top: 42%; /* Move down from vertical center (adjust this value) */
+                left: 50%; /* Center horizontally within the dialog */
+                transform: translate(-50%, -50%); /* Adjust to center content */
+                width: 80%;
+                max-width: 800px;
+                max-height: 80vh; /* Limit height to viewport height */
+                overflow-y: auto; /* Allow scrolling within the dialog content if it overflows */
+  z-index: 9999;
+}
+
+.infodialog-body {
+  margin-bottom: 20px;
+}
+
+.infodialog-footer {
+  text-align: right;
+}
+
+.infodialog-close {
+  padding: 5px 10px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.infodialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent dark background */
+  z-index: 1000; /* Ensure it's above all other content */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.infodialog-close:hover {
+  background-color: #0056b3;
+}
+
+
+strong {
+  font-weight: bold;
+  color: #FFD700; /* Gold text for headings */
+  margin-bottom: 10px;
+}
+
+.sub-strong {
+  color: #FFD700; /* Gold text for headings */
+  margin-bottom: 10px;
+}
+
+.center-text {
+  text-align: center;  /* Centers text horizontally */
+  display: block;      /* Ensures the element is treated as block-level */
+  margin-left: auto;   /* Optional: Helps if any issue with spacing */
+  margin-right: auto;  /* Optional: Helps if any issue with spacing */
+}
+
+
+/* Add some basic styles for the voice button */
+.voice-button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* Style for the active (highlighted) state of the button */
+.voice-button.active {
+    background-color: #28a745; /* Change this to a color you prefer */
+}
+
+/* Hide the fullscreen button in the video controls */
+video::-webkit-media-controls-fullscreen-button {
+    display: none !important;
+}
+
+video::-moz-media-controls-fullscreen-button {
+    display: none !important;
+}
+
+video::-ms-media-controls-fullscreen-button {
+    display: none !important;
+}
+
+.twitch-chat-container {
+    height: 200px;
+    max-width: 210px;
+    overflow-y: auto;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+    font-family: monospace;
+}
+.twitch-chat-message {
+    font-family: 'Inter', "Segoe UI", Roboto, Arial, sans-serif;
+    margin-bottom: 6px;
+}
+
+.twitch-chat-time {
+    color: #888;         /* gray for timestamp */
+    margin-right: 4px;
+    font-size: 0.85em;
+}
+
+.twitch-chat-user {
+    margin-right: 4px;
+}
+
+.twitch-chat-text {
+    color: #fff;         /* white message text */
+}
+.twitch-chat-container.collapsed {
+    display: none;
+}
+
+/* ── Preset submenu ─────────────────────────────────────────────────── */
+.preset-menu-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.preset-submenu {
+    position: fixed;    /* escapes all overflow-clipping parents */
+    /* top/right set dynamically via JS on mouseenter */
+    transform: scale(0.3);
+    transform-origin: top left;
+    opacity: 0;
+    pointer-events: none;
+    transition:
+        transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+        opacity 0.14s ease;
+    z-index: 100001;
+
+    /* Same panel style as swapdialog / presetdialog */
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.45) inset,
+                0 8px 32px rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    min-width: 150px;
+    white-space: nowrap;
+}
+
+.preset-submenu.open {
+    transform: scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Speech bubble arrow — centred over the ~35px button at the left edge */
+.preset-submenu::before {
+    content: '';
+    position: absolute;
+    top: -7px;
+    left: 11px;         /* 35px button / 2 = 17px centre, minus 6px half-arrow */
+    transform: rotate(45deg);
+    width: 12px;
+    height: 12px;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border-left: 1px solid rgba(255, 255, 255, 0.22);
+    border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+/* Individual item: icon on top, label below */
+.preset-submenu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 8px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: background 0.12s ease;
+}
+
+.preset-submenu-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.preset-submenu-label {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.72);
+    font-family: sans-serif;
+    text-align: center;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+/* ── Player Settings submenu ─────────────────────────────────────────── */
+.settings-menu-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings-submenu {
+    position: fixed;
+    transform: scale(0.3);
+    transform-origin: top right;
+    opacity: 0;
+    pointer-events: none;
+    transition:
+        transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+        opacity 0.14s ease;
+    z-index: 100001;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.45) inset,
+                0 8px 32px rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    display: flex;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.settings-submenu.open {
+    transform: scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.settings-submenu::before {
+    content: '';
+    position: absolute;
+    top: -7px;
+    right: 11px;
+    transform: rotate(45deg);
+    width: 12px;
+    height: 12px;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border-left: 1px solid rgba(255, 255, 255, 0.22);
+    border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.vidbutton-settings {
+    width: 35px;
+    height: 35px;
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-image: url('./img/player-settings.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.vidbutton-stream-tools {
+    width: 35px;
+    height: 35px;
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-image: url('./img/stream-tools.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+/* ── Widget resize handle ─────────────────────────────────────── */
+.resize-handle {
+    height: 8px;
+    cursor: ns-resize;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2px 8px -14px;
+    border-radius: 4px;
+    opacity: 0.4;
+    transition: opacity 0.15s;
+}
+.resize-handle:hover,
+.resize-handle.dragging {
+    opacity: 1;
+}
+.resize-handle::after {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 3px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.45);
+}
+
+/* ── Focus assist ──────────────────────────────────────────────────────────── */
+#fullcam-focus-btn.active {
+    background: #1e4d2b;
+    color: #4ade80;
+}
+
+.focus-roi-indicator {
+    position: absolute;
+    display: none;
+    box-sizing: border-box;
+    border: 2px dashed #00ff88;
+    z-index: 3;
+    pointer-events: none;
+    background: rgba(0, 255, 136, 0.05);
+}
+
+.focus-panel {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    z-index: 5;
+    padding: 8px 10px;
+    background: rgba(0, 0, 0, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 6px;
+    font-size: 12px;
+    color: #fff;
+    min-width: 206px;
+    font-family: system-ui, sans-serif;
+    pointer-events: all;
+}
+
+.focus-score-row {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-bottom: 4px;
+}
+
+.focus-score {
+    font-size: 26px;
+    font-family: monospace;
+    line-height: 1;
+    min-width: 60px;
+}
+
+.focus-trend {
+    font-size: 18px;
+}
+
+.focus-peak {
+    font-size: 11px;
+    color: rgba(255, 210, 50, 0.85);
+    margin-left: auto;
+}
+
+.focus-sparkline {
+    display: block;
+    width: 100%;
+    height: 38px;
+    margin-bottom: 4px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.focus-warning {
+    font-size: 11px;
+    color: #fb923c;
+    margin-bottom: 4px;
+}
+
+.focus-sweep-state {
+    font-size: 11px;
+    color: #fde047;
+    margin-bottom: 4px;
+}
+
+.focus-btn-row {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.focus-ctrl-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    color: #ccc;
+    font-size: 11px;
+    padding: 3px 7px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.focus-ctrl-btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+    color: #fff;
+}
+
+.focus-ctrl-btn:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.focus-sweep-btn {
+    color: #86efac;
+    border-color: rgba(74, 222, 128, 0.35);
+}
+
+.focus-pip {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 5;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    pointer-events: none;
+}

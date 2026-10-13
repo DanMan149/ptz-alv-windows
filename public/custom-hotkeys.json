@@ -1,0 +1,37 @@
+{
+  "Parrots": {
+    "abovedoorzr": "adz",
+    "macawzoom": "mz",
+    "Mia": "mi",
+    "MiaCorner": "mic"
+  },
+  "Wolf": {
+    "den1tf": "d1tf",
+    "Meatball": "m",
+    "Switchpen": "sp",
+    "Switchpen2": "sp2"
+  },
+  "Pasture": {
+    "dragonfly": "df",
+    "dragonfly2": "df2",
+    "rattemp": "rt",
+    "bugpicnic": "bp",
+    "feederinspect": "fi",
+    "ChrysalisNew": "cn",
+    "MidBarn": "mb"
+  },
+  "Garden": {
+    "Right": "r",
+    "Center": "c",
+    "Left": "l"
+  },
+  "Pushpop": {
+    "BottomRight": "br",
+    "HomeFar": "hf",
+    "right": "r",
+    "left": "l",
+    "BottomLeft": "bl",
+    "Behind": "b",
+    "food2": "f2"
+  }
+}

@@ -1,0 +1,9 @@
+{
+    "twitch": {
+        "username": "",
+        "channel": "alveusgg",
+        "oauthKey": "",
+        "url": "https://player.twitch.tv/?channel=alveussanctuary&parent=localhost",
+        "llurl": "Not Available"
+    }
+}

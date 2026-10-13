@@ -1,0 +1,66 @@
+v1.9: click on video to load nearest preset (per-camera calibration, sends only !ptzload)
+v1.9
+ - New UI based on the ptz.app web version (layout, thumbnails, camera search, resizable lists)
+ - Control pad with zoom/focus/move tabs, CF and NFC focus modes
+ - Spin speed selectors and circle spin pad
+ - Web swap presets (wden, win-ws, wolf-ws) added
+ - Preset sort A-Z, grid size, hotkey hints
+ - Live Twitch chat widget (server-sent events from the local server)
+ - Radial camera menu (middle click or `)
+ - Widget show/hide switches in Interface Settings
+ - Vendored hls.js, fabric.js, panzoom, intro.js
+ - Server runs read-only (no chat sending) instead of failing when no OAuth key is set
+
+v1.8
+ - Updated wolf/wolfcorner/wolfin presets, hotkeys, and images.
+ - Added thumbnail images to various presets (credit to bagel).
+ - Added ptzzoomr option to the side zoom menu with the ability to toggle to regular zoom.
+ - Added continuous focus option to the focus menu, can be toggled in interface settings.
+ - Added ability to swap cams using Shift + number in addition to Ctrl + number.
+
+v1.7
+ - Added zoom dialog for normal clicks (when you click and hold a dialog with zoom values will appear)
+ - Removed the top bar and made the video window fixed in place.
+ - Disabled number keys from changing cameras when Continous move is switched on
+ - Added new multi-cams and fox thumbnails (credit to Wazix)
+ - Bug fixes
+
+v1.6
+- Added auto cam detection for click and area click
+- Added swap hotkeys
+- Added setting to change stream URL
+- bug fixes
+
+v1.5
+- Added search for presets
+- Added config setting to disable Full PTZ permission features
+- Added zoom control for regular PTZ permissions
+- Added ability to collapse side modules by clicking the label
+- Added experimental feature to click the video stream to move the camera (full ptz perms)
+	- Click the hand icon top right of screen to switch from list/grid view to video view.
+	- Select camera, enter zoom (if required) in the zoom module, click in the box on the stream for the camera you selected	
+	- Click "Area select" button to enable box drawing for automatic click and zoom
+- Added experimental module to interface with MPV for clicking (full ptz perms)
+- Added IR control buttons (full ptz perms)
+- Added resetcam button (full ptz perms)
+- Added quick swap buttons for marms (marmin-marmout), crows (crowin-crowout), wolves (wolf-wolfcorner), wolfin (wolf-wolfindoor), wden (wolf-wolfden)
+- Added updated preset screenshots (credit to Taizun)
+
+v1.4:
+- Added hotkeys for presets
+- Added sound mixer for volume control
+- Added custom presets using ptzgetinfo and ptzseta
+
+v1.3:
+- Added PanTilt direction pad
+- Added setting to disable thumbnails on grid view
+- Added List / Grid view switcher
+- Added setting to enable / disable keyboard keys
+
+- Web (Netlify) build: build-web.js, web/serverless.js, deploy-web.bat
+- Alt+click on a slot: swaps the selected camera with that slot's camera (slots-pano.js v8)
+- Pano now opens as circles over the selected camera's slot (hover = preset name, no thumbnails) (slots-pano.js v10)
+- Pano shows only the 12 nearest presets to the loaded one (Nearby/All switch) (slots-pano.js v11)
+- update13: right click = zoom + focus dropdowns (no custom box, no slot text), click toast shows only preset + degrees, focus widget sends !ptzfocus, pano back to preset-name buttons with hover thumbnails
+- update14: Backup and Restore (export/import) under Twitch Settings; yellow box around the selected camera's slot
+- update15: middle click toast shows only the camera name; middle click scrolls the camera list to the selected camera
