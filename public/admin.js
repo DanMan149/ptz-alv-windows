@@ -280,6 +280,18 @@ function showInterfaceSettings() {
                 <input type="checkbox" class="edit-checkbox" id="TwitchChatWidgetCheckbox" checked>
                 </td>
             </tr>
+            <tr>
+                <td><label class="field-label">Auto Sync slots (re-reads !scenecams after swaps)</label></td>
+                <td>
+                <input type="checkbox" class="edit-checkbox" id="AutoSyncCheckbox" checked>
+                </td>
+            </tr>
+            <tr>
+                <td><label class="field-label">Calibrate Click Presets</label></td>
+                <td>
+                <button type="button" id="openCalibrate" class="edit-checkbox" style="width:auto;height:auto;padding:5px 12px;cursor:pointer">Open Calibrate</button>
+                </td>
+            </tr>
         </table>
     `;
 
@@ -319,6 +331,11 @@ document.getElementById('interfaceSettingsLink').addEventListener('click', funct
     };
 
     // Set up the checkboxes
+    setupCheckbox('AutoSyncCheckbox', 'slotAutoSync');
+    document.getElementById('openCalibrate')?.addEventListener('click', () => {
+        try { localStorage.setItem('cpOpenPanel', '1'); } catch (e) { /* ignore */ }
+        window.location.href = 'index.html';
+    });
     setupCheckbox('thumbnailCheckbox', 'thumbnailVisibility');
     setupCheckbox('CamerathumbnailCheckbox', 'CamerathumbnailVisibility');
     setupCheckbox('arrowKeyCheckbox', 'arrowKeyCheckboxState');

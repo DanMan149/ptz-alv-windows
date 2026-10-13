@@ -323,3 +323,34 @@
 .button-container button.vidbutton7 { display:none !important; }
 .button-container { zoom:1 !important; width:100% !important; max-width:100%; } .button-container button { height:28px !important; min-height:28px !important; font-size:13px !important; padding:0 11px !important; }
 .button-container { width:calc(100% - 44px) !important; }
+
+/* ---- toolbar order: left = Presets, Pano, Get Info, Wolftext; right = Click On ... Area Select, Sync Slots, Auto Sync ---- */
+.button-container button.vidbutton2 { order:1 !important; }
+.button-container #panoBtn { order:2 !important; }
+.button-container #getInfoBtn { order:3 !important; }
+.button-container #wolfTextBtn { order:4 !important; }
+.button-container button.vidbutton6 { order:5 !important; }
+.button-container button.vidbutton7 { order:6 !important; }
+.button-container button.vidbutton4 { order:10 !important; margin-left:auto !important; }
+.button-container button.vidbutton5 { order:11 !important; }
+.button-container #cpToggle { order:12 !important; }
+.button-container button.vidbutton3 { order:14 !important; }
+.button-container #syncBtn { order:15 !important; }
+
+/* ---- icon toolbar ---- */
+.button-container button.tbicon.tbicon {
+  font-size:0 !important; width:36px !important; min-width:36px; padding:0 !important; position:relative;
+  background-image:var(--ic) !important; background-repeat:no-repeat !important; background-position:center !important; background-size:20px 20px !important;
+}
+.button-container button.tbicon::after {
+  content:attr(data-tip); position:absolute; top:calc(100% + 8px); left:50%; transform:translateX(-50%); white-space:nowrap;
+  background:#101010; color:#fff; border:1px solid #444; padding:4px 9px; border-radius:5px; font-size:12px; letter-spacing:.3px; line-height:1.2;
+  opacity:0; pointer-events:none; transition:opacity .12s; z-index:100001; text-shadow:none; box-shadow:0 3px 10px rgba(0,0,0,.5);
+}
+.button-container button.tbicon:hover::after { opacity:1; }
+.button-container #resetLiveBtn { order:20 !important; }
+.button-container #resetLiveBtn::after { left:auto; right:0; transform:none; }
+.button-container button.tbicon:hover { background-color:#505050; }
+.button-container button.tbicon.highlighted:hover { background-color:#1565c0 !important; }
+.button-container { position:relative !important; z-index:50 !important; }
+.button-container button.vidbutton5 { display:none !important; }

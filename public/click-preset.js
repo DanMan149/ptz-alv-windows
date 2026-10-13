@@ -150,7 +150,6 @@
             bar.appendChild(b);
         };
         mk('cpToggle', 'Click Preset', () => { modeOn = !modeOn; LS.set('cpModeOn', modeOn); syncButtons(); });
-        mk('cpCal', 'Calibrate', () => togglePanel());
         syncButtons();
     }
     function syncButtons() {
@@ -269,6 +268,16 @@
         refreshPanel();
     }
     window.cpTogglePanel = togglePanel;
+    // "Calibrate" lives in Settings > Interface Settings; it sets this flag and returns here
+    try {
+        if (localStorage.getItem('cpOpenPanel') === '1') {
+            localStorage.removeItem('cpOpenPanel');
+            setTimeout(() => {
+                if (!$('#video-container-card')) document.getElementById('vidIcon')?.click();
+                setTimeout(() => { if (!$('#cpPanel')) togglePanel(); }, 900);
+            }, 1200);
+        }
+    } catch { /* ignore */ }
 
     function refreshPanel() {
         const panel = $('#cpPanel');

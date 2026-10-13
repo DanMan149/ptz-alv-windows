@@ -466,22 +466,110 @@
         if (bar && !$('#syncBtn')) {
             const b = document.createElement('button');
             b.id = 'syncBtn'; b.className = 'vidbutton'; b.textContent = 'Sync Slots';
-            b.title = 'Sends !scenecams and reads which camera is in which slot';
             b.addEventListener('click', syncSlots);
             bar.appendChild(b);
         }
-        if (bar && !$('#autoSyncBtn')) {
+    }
+    // ------------------------------------------------------------------ Get Info + Wolftext buttons (left side of the toolbar)
+    let wolfOn = false;
+    function ensureExtraButtons() {
+        const bar = $('#video-container-card .button-container');
+        if (!bar) return;
+        if (!$('#getInfoBtn')) {
             const b = document.createElement('button');
-            b.id = 'autoSyncBtn'; b.className = 'vidbutton';
-            const paint = () => { b.textContent = 'Auto Sync: ' + (autoSync ? 'On' : 'Off'); b.classList.toggle('highlighted', autoSync); };
-            b.title = 'When a swap or scene command is seen in chat, re-run !scenecams automatically (max once per 15 s)';
-            b.addEventListener('click', () => { autoSync = !autoSync; LS.set('slotAutoSync', autoSync); paint(); });
-            paint();
+            b.id = 'getInfoBtn'; b.className = 'vidbutton'; b.textContent = 'Get Info';
+            b.addEventListener('click', () => {
+                const cam = (typeof selectedCamera !== 'undefined' && selectedCamera) ? selectedCamera : '';
+                if (!cam) return;
+                sendCommand(`!ptzgetinfo ${cam.toLowerCase()}`);
+            });
             bar.appendChild(b);
         }
+        if (!$('#wolfTextBtn')) {
+            const b = document.createElement('button');
+            b.id = 'wolfTextBtn'; b.className = 'vidbutton'; b.textContent = 'Wolftext';
+            b.addEventListener('click', () => {
+                wolfOn = !wolfOn;
+                sendCommand(`!wolftext ${wolfOn ? 'on' : 'off'}`);
+                b.classList.toggle('highlighted', wolfOn);
+            });
+            bar.appendChild(b);
+        }
+        if (!$('#resetLiveBtn')) {
+            const b = document.createElement('button');
+            b.id = 'resetLiveBtn'; b.className = 'vidbutton'; b.textContent = 'Resetlivecams';
+            b.addEventListener('click', confirmResetLive);
+            bar.appendChild(b);
+        }
+        decorateToolbar(bar);
     }
-    new MutationObserver(ensureUi).observe(document.body, { childList: true, subtree: true });
+
+    // icons + hover names for the toolbar buttons (text stays in the DOM but is hidden by CSS)
+    const TB = [
+        ['button.vidbutton2', 'presets', 'Presets'],
+        ['#panoBtn', 'presetmap', 'Preset Map'],
+        ['#getInfoBtn', 'getinfo', 'Get Info'],
+        ['#wolfTextBtn', 'wolftext', 'Wolf Text'],
+        ['button.vidbutton4', 'clickon', 'Enable Click (Mods Only)'],
+        ['#cpToggle', 'clickpreset', 'Click Presets'],
+        ['button.vidbutton3', 'areaselect', 'Area Select (Mods Only)'],
+        ['#syncBtn', 'scenecams', 'Scenecams'],
+        ['#resetLiveBtn', 'resetlivecams', 'Resetlivecams'],
+    ];
+    function decorateToolbar(bar) {
+        for (const [sel, icon, tip] of TB) {
+            const b = bar.querySelector(sel);
+            if (!b || b.dataset.tb === icon) continue;
+            b.dataset.tb = icon; b.dataset.tip = tip; b.setAttribute('aria-label', tip); b.removeAttribute('title');
+            b.classList.add('tbicon');
+            b.style.setProperty('--ic', `url(img/tb/${icon}.png)`);
+        }
+    }
+
+    function confirmResetLive() {
+        if ($('#resetLiveModal')) return;
+        const ov = document.createElement('div');
+        ov.id = 'resetLiveModal';
+        Object.assign(ov.style, { position: 'fixed', inset: '0', background: 'rgba(0,0,0,.6)', zIndex: 100010, display: 'flex', alignItems: 'center', justifyContent: 'center' });
+        const box = document.createElement('div');
+        Object.assign(box.style, { background: '#1c1c1c', color: '#eee', border: '1px solid #444', borderRadius: '10px', padding: '20px 24px', width: '340px', textAlign: 'center', boxShadow: '0 10px 30px rgba(0,0,0,.7)', fontSize: '15px' });
+        box.innerHTML = '<div style="margin-bottom:16px">Are you sure you want to reset the live stream?</div>' +
+            '<div style="display:flex;gap:10px;justify-content:center"><button id="rlYes" style="background:#b3261e;color:#fff;border:0;border-radius:6px;padding:7px 22px;cursor:pointer;font-size:14px">Yes</button>' +
+            '<button id="rlNo" style="background:#3c3c3c;color:#fff;border:0;border-radius:6px;padding:7px 22px;cursor:pointer;font-size:14px">No</button></div>';
+        ov.appendChild(box);
+        document.body.appendChild(ov);
+        const close = () => { ov.remove(); document.removeEventListener('keydown', onKey, true); };
+        const onKey = (e) => { if (e.key === 'Escape') close(); };
+        document.addEventListener('keydown', onKey, true);
+        ov.addEventListener('mousedown', (e) => { if (e.target === ov) close(); });
+        box.querySelector('#rlNo').addEventListener('click', close);
+        box.querySelector('#rlYes').addEventListener('click', () => { close(); sendCommand('!resetlivecams'); });
+        box.querySelector('#rlNo').focus();
+    }
+
+    // ------------------------------------------------------------------ pick up presets the server found in chat
+    let presetRev = null;
+    async function pollPresets() {
+        try {
+            const st = await (await fetch('/status', { cache: 'no-store' })).json();
+            if (presetRev === null) { presetRev = st.presetRev || 0; return; }
+            if ((st.presetRev || 0) === presetRev) return;
+            presetRev = st.presetRev;
+            const data = await (await fetch('cameras.json?t=' + Date.now(), { cache: 'no-store' })).json();
+            if (typeof camerasData !== 'undefined') camerasData = data;
+            const last = st.presetLast;
+            if (last && typeof selectedCamera !== 'undefined' && String(selectedCamera).toLowerCase() === String(last.camera).toLowerCase() && typeof selectCamera === 'function') {
+                selectCamera(selectedCamera);
+            }
+            if (last) toast(`${last.camera}: ${last.added.length} new preset${last.added.length === 1 ? '' : 's'} added`, innerWidth / 2 - 100, 80);
+        } catch { /* server busy, try again next tick */ }
+    }
+    setInterval(pollPresets, 5000);
+    pollPresets();
+
+    new MutationObserver(() => { ensureUi(); ensureExtraButtons(); }).observe(document.body, { childList: true, subtree: true });
     ensureUi();
+    ensureExtraButtons();
 
     // ------------------------------------------------------------------ Alt: swap within the camera group
     const GROUPS = [
